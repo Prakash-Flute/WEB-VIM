@@ -1,0 +1,31 @@
+name: Update Note Validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-update-note:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify UPDATE_NOTE.md exists
+        run: |
+          test -f UPDATE_NOTE.md
+
+      - name: Verify required fields
+        run: |
+          grep -q "^Title:.*[^ ]" UPDATE_NOTE.md
+          grep -q "^Changed:.*[^ ]" UPDATE_NOTE.md
+          grep -q "^Files:.*[^ ]" UPDATE_NOTE.md
+          grep -q "^Reason:.*[^ ]" UPDATE_NOTE.md
+          grep -q "^Tested:.*[^ ]" UPDATE_NOTE.md
+
+      - name: Show update note
+        run: cat UPDATE_NOTE.md
