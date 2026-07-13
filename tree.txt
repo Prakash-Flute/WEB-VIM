@@ -1,6 +1,6 @@
 # WEB-VIM Project Tree
-# Auto-updated: 2026-07-14 01:53:58
-# Directories: 30 | Files: 115
+# Auto-updated: 2026-07-14 01:58:21
+# Directories: 31 | Files: 119
 
 WEB-VIM/
 
@@ -96,6 +96,8 @@ WEB-VIM/
 │       ├── ganpati-stotra.html
 │       ├── samapti.txt
 │       └── shri_ganeshay_namah.txt
+├── scripts
+│   └── bootstrap.sh
 ├── server
 │   ├── apps
 │   │   ├── ROUTES_ADDITION.txt
@@ -146,7 +148,10 @@ WEB-VIM/
 │   │       └── sub_period_calculator.py
 │   └── app.py
 ├── .gitignore
+├── ASTRO_PROJECT.json
 ├── README.md
-└── UPDATE_NOTE.md
+├── README_SETUP.md
+├── UPDATE_NOTE.md
+└── install.sh
 
 # End of Tree
