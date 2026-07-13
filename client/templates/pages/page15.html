@@ -1,0 +1,305 @@
+<!-- ================================================================================
+FILE PATH: /storage/emulated/0/WEBSITE/Localhost/templates/page15.html
+================================================================================ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔱 दुर्गा सप्तशती - Sacred Texts</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #000428 30%, #0a0a0a 70%, #4b0082 100%);
+            min-height: 100vh;
+            color: #e0e0ff;
+            padding: 40px 20px;
+        }
+        
+        /* Sacred particles */
+        .sacred-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .sacred-particle {
+            position: absolute;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #ffd700);
+            border-radius: 50%;
+            animation: sacredFloat var(--duration) var(--delay) infinite ease-in-out;
+        }
+        
+        @keyframes sacredFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-120px) rotate(360deg); opacity: 1; }
+        }
+        
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(10, 10, 30, 0.8);
+            backdrop-filter: blur(25px);
+            border: 4px solid rgba(255, 215, 0, 0.5);
+            border-radius: 35px;
+            box-shadow: 0 0 100px rgba(255, 215, 0, 0.4),
+                        inset 0 0 50px rgba(255, 140, 0, 0.2);
+            animation: sacredFloat 10s ease-in-out infinite;
+        }
+        
+        @keyframes sacredFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #ffd700;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+            letter-spacing: 3px;
+        }
+        
+        .swastika {
+            font-size: 1.5em;
+            animation: swastikaGlow 2s ease-in-out infinite;
+            display: inline-block;
+            margin: 0 20px;
+        }
+        
+        @keyframes swastikaGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+            50% { text-shadow: 0 0 40px rgba(255, 140, 0, 1); }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+        }
+        
+        th {
+            background: linear-gradient(45deg, #ff4500, #ff8c00, #ffd700);
+            color: #0a0a0a;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.2em;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        td {
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        tr:nth-child(even) {
+            background: rgba(255, 215, 0, 0.05);
+        }
+        
+        tr:hover {
+            background: rgba(255, 215, 0, 0.15);
+            transform: translateX(10px);
+        }
+        
+        a {
+            color: #ff8c00;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(255, 140, 0, 0.4);
+        }
+        
+        a:hover {
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            font-size: 1.05em;
+        }
+        
+        /* Notes */
+        .notes {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 140, 0, 0.1);
+            border: 3px solid rgba(255, 140, 0, 0.4);
+            border-radius: 25px;
+            animation: notesGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes notesGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 140, 0, 0.3); }
+            50% { box-shadow: 0 0 60px rgba(255, 140, 0, 0.6); }
+        }
+        
+        .orange {
+            color: #ff8c00;
+            font-size: 1.1em;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(255, 140, 0, 0.4);
+        }
+        
+        .red {
+            color: #ff4500;
+            font-size: 1.1em;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+        }
+        
+        .spiritual-flicker {
+            color: #ffd700;
+            font-size: 1.2em;
+            font-weight: 700;
+            animation: flicker 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+            50% { opacity: 0.7; text-shadow: 0 0 40px rgba(255, 215, 0, 1); }
+        }
+        
+        ul {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 10px 0;
+            color: #ffaa00;
+        }
+        
+        /* Navbar */
+        .navbar {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(10, 10, 30, 0.8);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+        }
+        
+        .navbar a {
+            margin: 0 15px;
+            color: #ff8c00;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(255, 140, 0, 0.4);
+        }
+        
+        .navbar a:hover {
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 25px;
+            }
+            
+            h2 {
+                font-size: 1.8em;
+            }
+            
+            th, td {
+                padding: 12px;
+                font-size: 0.95em;
+            }
+            
+            .navbar {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sacred-particles" id="sacredParticles"></div>
+    
+    <div class="content">
+        <h2>
+            <span class="swastika">卐</span> 
+            <span>दुर्गा सप्तशती</span>
+            <span class="swastika">卐</span>
+        </h2>
+        
+        <table>
+            <tr>
+                <th>Srno</th>
+                <th>Adhyay</th>
+            </tr>
+            {% set counter = 1 %}
+            {% for file in file_list %}
+            <tr>
+                <td>{{ file.srno or counter }}</td>
+                <td><a href="{{ file.url }}">{{ file.adhyay }}</a></td>
+            </tr>
+            {% set counter = counter + 1 %}
+            {% endfor %}
+        </table>
+        
+        <div class="notes">
+            <p class="orange">यहाँ पर दुर्गा पाठ करने का एक सामान्य विधि प्रस्तुत की जा रही है। कोई भी व्यक्ति इस पाठ को भक्तिभाव से कर सकता है:</p>
+            <p class="orange"><strong>दुर्गा सप्तशती पाठ</strong></p>
+            <p class="orange">पूर्णिमा: हर साल आने वाली सिद्ध रातियाँ (जैसे होली, शिवरात्रि, दिवाली, जन्माष्टमी) पर दुर्गा सप्तशती पाठ करना बहुत शुभ होता है।</p>
+            <p class="red">नवरात्रि: इसमें चार नवरात्रियाँ आती हैं:</p>
+            <ul>
+                <li class="orange">1. चैत नवरात्रि</li>
+                <li class="orange">2. आसाढ़ नवरात्रि</li>
+                <li class="orange">3. गुप्त नवरात्रि (2)</li>
+                <li class="orange">4. सकंभरी नवरात्रि (अन्नपूर्णा देवी की नवरात्रि)</li>
+            </ul>
+            <p class="red">नवरात्रि के विशेष दिन: अष्टमी, चतुर्दशी और नवमी के दिन विशेष रूप से पाठ करना लाभदायक है।</p>
+            <p class="orange">महाकाली के लिए: अगर कोई <span style="color: #ff8c00; font-weight: bold;">महाकाली</span> की आराधना करना चाहता है, तो <span style="color: #ff8c00; font-weight: bold;">काली चौदश</span> भी एक अच्छा दिन है।</p>
+            <p class="spiritual-flicker">ध्यान रखें:</p>
+            <p class="orange">दुर्गा, काली, और सरस्वती को यह पाठ अत्यंत प्रिय है।</p>
+        </div>
+    </div>
+    
+    <div class="navbar">
+        {% for i in range(1, 16) %}
+            <a href="/page{{i}}">{{i}}</a>
+        {% endfor %}
+    </div>
+    
+    <script>
+        // Generate sacred particles
+        const particlesContainer = document.getElementById('sacredParticles');
+        const particleCount = 60;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'sacred-particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.width = Math.random() * 6 + 3 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.setProperty('--duration', (Math.random() * 20 + 15) + 's');
+            particle.style.setProperty('--delay', Math.random() * 10 + 's');
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<script>
+function toggleSection(id) {
+    const content = document.getElementById(id);
+    const arrow = document.getElementById('arrow-' + id);
+    if (content.classList.contains('collapsed')) {
+        content.classList.remove('collapsed');
+        if (arrow) arrow.classList.remove('collapsed');
+        if (id === 'live-coords' && typeof fetchLiveData === 'function') setTimeout(fetchLiveData, 300);
+        if (id === 'target-pos' && typeof updateTargetPlanetaryTable === 'function') setTimeout(updateTargetPlanetaryTable, 300);
+        if (id === 'meteorology-chakras' && typeof switchChakraData === 'function') setTimeout(() => switchChakraData('target'), 300);
+    } else {
+        content.classList.add('collapsed');
+        if (arrow) arrow.classList.add('collapsed');
+    }
+}
+
+function openDownloadModal() { document.getElementById('downloadModal').style.display = 'block'; }
+function closeDownloadModal() { document.getElementById('downloadModal').style.display = 'none'; }
+window.onclick = function(event) { if (event.target == document.getElementById('downloadModal')) document.getElementById('downloadModal').style.display = 'none'; }
+</script>

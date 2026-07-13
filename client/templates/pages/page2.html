@@ -1,0 +1,385 @@
+<!-- ================================================================================
+FILE PATH: /storage/emulated/0/WEBSITE/Localhost/templates/page2.html
+================================================================================ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌠 Cosmic Input Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 25%, #000428 50%, #004e92 100%);
+            min-height: 100vh;
+            color: #e0e0ff;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+        
+        /* Animated cosmic background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(120, 0, 255, 0.1) 0%, transparent 35%),
+                radial-gradient(circle at 75% 75%, rgba(0, 255, 200, 0.1) 0%, transparent 35%);
+            animation: cosmicPulse 20s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes cosmicPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        
+        /* Page Number */
+        .page-number {
+            text-align: center;
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 30px;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(45deg, #00ff88, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(0, 255, 200, 0.6);
+        }
+        
+        /* Form Container */
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(10, 10, 30, 0.7);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(0, 255, 200, 0.4);
+            border-radius: 30px;
+            box-shadow: 0 0 80px rgba(0, 255, 200, 0.3),
+                        inset 0 0 40px rgba(120, 0, 255, 0.2);
+            animation: formFloat 7s ease-in-out infinite;
+        }
+        
+        @keyframes formFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ff88;
+            text-shadow: 0 0 30px rgba(0, 255, 200, 0.7);
+            letter-spacing: 2px;
+        }
+        
+        /* Form Elements */
+        label {
+            display: block;
+            margin: 20px 0 10px 0;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #00ffff;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+        
+        select {
+            width: 100%;
+            padding: 15px;
+            font-size: 1em;
+            background: rgba(0, 0, 0, 0.8);
+            color: #e0e0ff;
+            border: 2px solid rgba(0, 255, 200, 0.4);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        select:focus {
+            border-color: #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 200, 0.6);
+            transform: translateY(-3px);
+        }
+        
+        select option {
+            background: #1a0020;
+            color: #e0e0ff;
+        }
+        
+        /* Advanced Section */
+        .advanced-button {
+            width: 100%;
+            padding: 18px;
+            margin: 25px 0;
+            background: linear-gradient(45deg, rgba(0, 255, 200, 0.3), rgba(120, 0, 255, 0.3));
+            border: 3px solid rgba(0, 255, 200, 0.5);
+            border-radius: 20px;
+            color: #00ff88;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.1em;
+        }
+        
+        .advanced-button:hover {
+            background: linear-gradient(45deg, rgba(0, 255, 200, 0.5), rgba(120, 0, 255, 0.5));
+            box-shadow: 0 0 40px rgba(0, 255, 200, 0.7);
+            transform: translateY(-5px);
+        }
+        
+        .dropdown-container {
+            display: none;
+            animation: slideDown 0.6s ease;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid rgba(0, 255, 200, 0.2);
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Submit Button */
+        button[type="submit"] {
+            width: 100%;
+            padding: 20px;
+            margin-top: 30px;
+            background: linear-gradient(45deg, #00ff88, #00ffff, #00ff88);
+            background-size: 300% 300%;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #0a0a0a;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: gradientShift 4s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        button[type="submit"]:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 255, 200, 0.8);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(10, 10, 30, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 200, 0.3);
+        }
+        
+        .footer a {
+            color: #ff4500;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+        }
+        
+        .footer a:hover {
+            color: #ff8c00;
+            text-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+        }
+        
+        .footer p {
+            margin: 10px 0;
+            color: #00ff88;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-number {
+                font-size: 2em;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+            
+            h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdownContainer');
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        // Initialize dropdown hidden
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('dropdownContainer').style.display = 'none';
+        });
+    </script>
+</head>
+<body>
+    <div class="page-number">🌟 Page 2 🌟</div>
+    
+    <div class="form-container">
+        <h2>🌌 Astrology Input Form</h2>
+        <form action="/page2" method="POST">
+            <label for="ascendant">🌀 Ascendant:</label>
+            <select id="ascendant" name="ascendant" required>
+                <option value="-">-</option> 
+                <option value="Aries">♈ Aries</option>
+                <option value="Taurus">♉ Taurus</option>
+                <option value="Gemini">♊ Gemini</option>
+                <option value="Cancer">♋ Cancer</option>
+                <option value="Leo">♌ Leo</option>
+                <option value="Virgo">♍ Virgo</option>
+                <option value="Libra">♎ Libra</option>
+                <option value="Scorpio">♏ Scorpio</option>
+                <option value="Sagittarius">♐ Sagittarius</option>
+                <option value="Capricorn">♑ Capricorn</option>
+                <option value="Aquarius">♒ Aquarius</option>
+                <option value="Pisces">♓ Pisces</option>
+            </select>
+            
+            <label for="house">🏠 House:</label>
+            <select id="house" name="house" required>
+                <option value="-">-</option>
+                <option value="1">1st House</option>
+                <option value="2">2nd House</option>
+                <option value="3">3rd House</option>
+                <option value="4">4th House</option>
+                <option value="5">5th House</option>
+                <option value="6">6th House</option>
+                <option value="7">7th House</option>
+                <option value="8">8th House</option>
+                <option value="9">9th House</option>
+                <option value="10">10th House</option>
+                <option value="11">11th House</option>
+                <option value="12">12th House</option>
+            </select>
+            
+            <label for="planet">☿️ Planet:</label>
+            <select id="planet" name="planet" required>
+                <option value="-">-</option>
+                <option value="Sun">☉ Sun</option>
+                <option value="Moon">☽ Moon</option>
+                <option value="Mercury">☿ Mercury</option>
+                <option value="Venus">♀ Venus</option>
+                <option value="Mars">♂ Mars</option>
+                <option value="Jupiter">♃ Jupiter</option>
+                <option value="Saturn">♄ Saturn</option>
+                <option value="Rahu">☊ Rahu</option>
+                <option value="Ketu">☋ Ketu</option>
+            </select>
+            
+            <button type="button" class="advanced-button" onclick="toggleDropdown()">
+                🔮 Advanced Interpretation +
+            </button>
+            
+            <div id="dropdownContainer" class="dropdown-container">
+                <label for="aspectedBy">👁️ Aspected By:</label>
+                <select id="aspectedBy" name="aspectedBy" required>
+                    <option value="-">-</option>
+                    <option value="Sun">☉ Sun</option>
+                    <option value="Moon">☽ Moon</option>
+                    <option value="Mercury">☿ Mercury</option>
+                    <option value="Venus">♀ Venus</option>
+                    <option value="Mars">♂ Mars</option>
+                    <option value="Jupiter">♃ Jupiter</option>
+                    <option value="Saturn">♄ Saturn</option>
+                    <option value="Rahu">☊ Rahu</option>
+                    <option value="Ketu">☋ Ketu</option>
+                </select>
+                
+                <label for="aspectedFromHouse">📍 Aspected From House:</label>
+                <select id="aspectedFromHouse" name="aspectedFromHouse" required>
+                    <option value="-">-</option>
+                    <option value="1">1st House</option>
+                    <option value="2">2nd House</option>
+                    <option value="3">3rd House</option>
+                    <option value="4">4th House</option>
+                    <option value="5">5th House</option>
+                    <option value="6">6th House</option>
+                    <option value="7">7th House</option>
+                    <option value="8">8th House</option>
+                    <option value="9">9th House</option>
+                    <option value="10">10th House</option>
+                    <option value="11">11th House</option>
+                    <option value="12">12th House</option>
+                </select>
+                
+                <label for="nakshatra">⭐ Nakshatra:</label>
+                <select id="nakshatra" name="nakshatra" required>
+                    <option value="-">-</option>
+                    <option value="Ashwini">Ashwini</option>
+                    <option value="Bharani">Bharani</option>
+                    <option value="Krittika">Krittika</option>
+                    <option value="Rohini">Rohini</option>
+                    <option value="Mrigashira">Mrigashira</option>
+                    <option value="Ardra">Ardra</option>
+                    <option value="Punarvasu">Punarvasu</option>
+                    <option value="Pushya">Pushya</option>
+                    <option value="Ashlesha">Ashlesha</option>
+                    <option value="Magha">Magha</option>
+                    <option value="Purva Phalguni">Purva Phalguni</option>
+                    <option value="Uttara Phalguni">Uttara Phalguni</option>
+                    <option value="Hasta">Hasta</option>
+                    <option value="Chitra">Chitra</option>
+                    <option value="Swati">Swati</option>
+                    <option value="Vishakha">Vishakha</option>
+                    <option value="Anuradha">Anuradha</option>
+                    <option value="Jyeshtha">Jyeshtha</option>
+                    <option value="Mula">Mula</option>
+                    <option value="Purva Ashadha">Purva Ashadha</option>
+                    <option value="Uttara Ashadha">Uttara Ashadha</option>
+                    <option value="Shravana">Shravana</option>
+                    <option value="Dhanishta">Dhanishta</option>
+                    <option value="Shatabhisha">Shatabhisha</option>
+                    <option value="Purva Bhadrapada">Purva Bhadrapada</option>
+                    <option value="Uttara Bhadrapada">Uttara Bhadrapada</option>
+                    <option value="Revati">Revati</option>
+                </select>
+            </div>
+            
+            <button type="submit">🚀 Submit Cosmic Data</button>
+        </form>
+    </div>
+    
+    <div class="footer">
+        <p><a href="/page15">🔱 दुर्गा सप्तशती</a></p>
+        <p>&copy; 2024 Cosmic Astrology Realm</p>
+        <p>👤 NAME - PRAKASH GONDALIYA</p>
+        <p>📧 CONTACT INFO - <a href="mailto:gondaliyaprakash927@gmail.com">gondaliyaprakash927@gmail.com</a></p>
+        <p><a href="Privacy_Policy.html">Privacy Policy</a></p>
+    </div>
+</body>
+</html>

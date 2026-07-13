@@ -1,0 +1,177 @@
+<!-- ================================================================================
+FILE PATH: /storage/emulated/0/WEBSITE/Localhost/templates/article_view.html
+================================================================================ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 Sacred Text - {{ filename }}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #000428 50%, #0a0a0a 100%);
+            min-height: 100vh;
+            color: #e0e0ff;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+        
+        /* Sacred glow particles */
+        .sacred-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .glow-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: glowFloat var(--duration) var(--delay) infinite ease-in-out;
+        }
+        
+        @keyframes glowFloat {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.3; }
+            50% { transform: translateY(-150px) scale(1.5); opacity: 0.8; }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(10, 10, 30, 0.85);
+            backdrop-filter: blur(30px);
+            border: 4px solid rgba(255, 215, 0, 0.5);
+            border-radius: 35px;
+            box-shadow: 0 0 100px rgba(255, 215, 0, 0.4),
+                        inset 0 0 50px rgba(255, 140, 0, 0.2);
+            animation: textFloat 10s ease-in-out infinite;
+        }
+        
+        @keyframes textFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-25px); }
+        }
+        
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffd700;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.9);
+            letter-spacing: 2px;
+            word-wrap: break-word;
+        }
+        
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1.1em;
+            line-height: 1.9;
+            color: #ffedcc;
+            font-family: 'Exo 2', sans-serif;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            max-height: 600px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #ffd700 transparent;
+        }
+        
+        pre::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        pre::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        pre::-webkit-scrollbar-thumb {
+            background: #ffd700;
+            border-radius: 10px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin-top: 30px;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            border-radius: 25px;
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.4), rgba(255, 140, 0, 0.4));
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.6);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            pre {
+                padding: 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sacred-glow" id="sacredGlow"></div>
+    
+    <div class="container">
+        <h1>📖 {{ filename }}</h1>
+        <pre>{{ content }}</pre>
+        <a href="{{ url_for('page', page_number=15) }}" class="back-btn">← Return to Sacred Archive</a>
+    </div>
+    
+    <script>
+        // Generate sacred glow particles
+        const glowContainer = document.getElementById('sacredGlow');
+        const glowCount = 40;
+        
+        for (let i = 0; i < glowCount; i++) {
+            const glow = document.createElement('div');
+            glow.className = 'glow-particle';
+            glow.style.left = Math.random() * 100 + '%';
+            glow.style.top = Math.random() * 100 + '%';
+            glow.style.width = Math.random() * 30 + 20 + 'px';
+            glow.style.height = glow.style.width;
+            glow.style.setProperty('--duration', (Math.random() * 25 + 20) + 's');
+            glow.style.setProperty('--delay', Math.random() * 15 + 's');
+            glowContainer.appendChild(glow);
+        }
+    </script>
+</body>
+</html>

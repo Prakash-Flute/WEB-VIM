@@ -1,0 +1,234 @@
+<!-- ================================================================================
+FILE PATH: /storage/emulated/0/WEBSITE/Localhost/templates/page3.html
+================================================================================ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Cosmic Archive - Articles</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 30%, #000428 70%, #004e92 100%);
+            min-height: 100vh;
+            color: #e0e0ff;
+            padding: 40px 20px;
+        }
+        
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, #00ff88, #00ffff);
+            border-radius: 50%;
+            animation: particleFloat var(--duration) var(--delay) infinite ease-in-out;
+        }
+        
+        @keyframes particleFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-80px) rotate(180deg); opacity: 0.8; }
+        }
+        
+        /* Articles Container */
+        .articles {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(10, 10, 30, 0.7);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(0, 255, 200, 0.4);
+            border-radius: 30px;
+            box-shadow: 0 0 80px rgba(0, 255, 200, 0.3);
+        }
+        
+        h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #00ff88;
+            text-shadow: 0 0 30px rgba(0, 255, 200, 0.7);
+            letter-spacing: 2px;
+        }
+        
+        /* Article Cards */
+        .article {
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(0, 255, 200, 0.3);
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0, 255, 200, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .article:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 255, 200, 0.5);
+            border-color: #00ffff;
+        }
+        
+        .article::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 200, 0.1), transparent);
+            transition: 0.6s;
+        }
+        
+        .article:hover::before {
+            left: 100%;
+        }
+        
+        .article p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #e0e0ff;
+        }
+        
+        /* Construction Message */
+        .construction-message {
+            background: rgba(255, 140, 0, 0.1);
+            border: 3px solid rgba(255, 140, 0, 0.6);
+            border-radius: 25px;
+            padding: 50px;
+            text-align: center;
+            margin: 40px 0;
+            animation: messageGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes messageGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 140, 0, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(255, 140, 0, 0.7); }
+        }
+        
+        .construction-message strong {
+            font-size: 1.8em;
+            color: #ff8c00;
+            text-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+        }
+        
+        .construction-message div {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #ffaa00;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            background: rgba(10, 10, 30, 0.8);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(0, 255, 200, 0.3);
+            border-radius: 25px;
+        }
+        
+        .footer p {
+            margin: 10px 0;
+            color: #00ff88;
+        }
+        
+        .footer a {
+            color: #00ffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+        }
+        
+        .footer a:hover {
+            color: #00ff88;
+            text-shadow: 0 0 20px rgba(0, 255, 200, 0.8);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .articles {
+                padding: 25px;
+            }
+            
+            h2 {
+                font-size: 2em;
+            }
+            
+            .article {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="articles">
+        {% if articles %}
+            <h2>📚 Cosmic Archive - Articles</h2>
+            {% for article in articles %}
+                <div class="article">
+                    <p>{{ article|safe }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="construction-message">
+                <div>
+                    <strong>🚧 Site Under Cosmic Construction 🚧</strong><br><br>
+                    Thank you for visiting our celestial archive. Please note that our cosmic database is currently being aligned with the stars.<br><br>
+                    We appreciate your patience during this stellar evolution. Please check back shortly, and you may find your article has been uploaded from the cosmic akashic records.<br><br>
+                    Thank you for your cosmic understanding. ✨
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 Cosmic Astrology Realm</p>
+        <p>👤 NAME - PRAKASH GONDALIYA</p>
+        <p>📧 CONTACT INFO - <a href="mailto:gondaliyaprakash927@gmail.com">gondaliyaprakash927@gmail.com</a></p>
+        <p><a href="Privacy_Policy.html">Privacy Policy</a></p>
+    </div>
+    
+    <script>
+        // Generate particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 80;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.width = Math.random() * 5 + 2 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.setProperty('--duration', (Math.random() * 15 + 10) + 's');
+            particle.style.setProperty('--delay', Math.random() * 5 + 's');
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+# WEB-VIM Project Tree
+# Auto-updated: 2026-07-14 01:41:43
+# Directories: 26 | Files: 110
+
+WEB-VIM/
+
+├── .astro
+│   └── config.env
+├── DATACENTER
+│   ├── Bollywood.csv
+│   ├── COUNTRIESSTATES.csv
+│   ├── GREENWICH.csv
+│   ├── IPL.csv
+│   ├── PERSONAL.csv
+│   ├── SAINTS.csv
+│   ├── TV SHOWS.csv
+│   ├── Untitled spreadsheet.csv
+│   ├── YOUTUBERS.csv
+│   └── all_kundalis.json
+├── client
+│   ├── static
+│   │   ├── css
+│   │   │   └── cosmic-theme.css
+│   │   └── js
+│   │       ├── chakra-renderer.js
+│   │       ├── chart.js
+│   │       ├── compression.js
+│   │       ├── gps-location.js
+│   │       ├── live-tracker.js
+│   │       ├── sheet-integration.js
+│   │       ├── ui-controller.js
+│   │       └── vimshottari-main.js
+│   └── templates
+│       ├── article
+│       │   ├── article.html
+│       │   ├── article_view-legacy.html
+│       │   ├── article_view.html
+│       │   └── write_article.html
+│       ├── login
+│       │   └── login.html
+│       ├── pages
+│       │   ├── page1.html
+│       │   ├── page10.html
+│       │   ├── page11.html
+│       │   ├── page12.html
+│       │   ├── page13.html
+│       │   ├── page14.html
+│       │   ├── page15.html
+│       │   ├── page2.html
+│       │   ├── page3.html
+│       │   ├── page4.html
+│       │   ├── page5.html
+│       │   ├── page6.html
+│       │   ├── page7.html
+│       │   ├── page8.html
+│       │   └── page9.html
+│       ├── privacy
+│       │   └── privacy_policy.html
+│       └── vimshottari
+│           ├── includes
+│           │   ├── base_body_start.html
+│           │   ├── base_head.html
+│           │   ├── base_scripts.html
+│           │   ├── birth_constellation.html
+│           │   ├── dasha_analysis.html
+│           │   ├── download_modal.html
+│           │   ├── form_section.html
+│           │   ├── live_coordinates.html
+│           │   ├── meteorology_chakras.html
+│           │   ├── natal_positions.html
+│           │   └── target_positions.html
+│           ├── base.html
+│           └── vimshottari.html
+├── content
+│   └── durgaa-shapatshati
+│       ├── 10A.txt
+│       ├── 11A.txt
+│       ├── 12A.txt
+│       ├── 13A.txt
+│       ├── 1A.txt
+│       ├── 2A.txt
+│       ├── 3A.txt
+│       ├── 4a.txt
+│       ├── 5A.txt
+│       ├── 6A.txt
+│       ├── 7A.txt
+│       ├── 8A.txt
+│       ├── 9A.txt
+│       ├── ganpati-stotra.html
+│       ├── samapti.txt
+│       └── shri_ganeshay_namah.txt
+├── server
+│   ├── apps
+│   │   ├── ROUTES_ADDITION.txt
+│   │   ├── __init__.py
+│   │   ├── calculations.py
+│   │   ├── chakras.py
+│   │   ├── config.py
+│   │   ├── dasha_logic.py
+│   │   ├── pdf_generator.py
+│   │   ├── routes.py
+│   │   ├── tree_manager.py
+│   │   └── utils.py
+│   ├── modules
+│   │   ├── calculations
+│   │   │   ├── __init__.py
+│   │   │   ├── all_planets.py
+│   │   │   ├── live_positions.py
+│   │   │   └── planet_details.py
+│   │   ├── chakras
+│   │   │   ├── __init__.py
+│   │   │   ├── calculator.py
+│   │   │   └── normalize.py
+│   │   ├── config
+│   │   │   └── __init__.py
+│   │   ├── dasha_logic
+│   │   │   ├── __init__.py
+│   │   │   ├── day_details.py
+│   │   │   ├── main_calculator.py
+│   │   │   └── timestamp_finder.py
+│   │   ├── pdf_generator
+│   │   │   └── __init__.py
+│   │   ├── routes
+│   │   │   ├── __init__.py
+│   │   │   ├── api_routes.py
+│   │   │   ├── article_routes.py
+│   │   │   ├── auth_routes.py
+│   │   │   ├── page_routes.py
+│   │   │   ├── pdf_routes.py
+│   │   │   └── vimshottari_routes.py
+│   │   ├── tree_manager
+│   │   │   └── __init__.py
+│   │   └── utils
+│   │       ├── __init__.py
+│   │       ├── dasha_sequence.py
+│   │       ├── datetime_parser.py
+│   │       ├── dms_converter.py
+│   │       ├── karve_ascendant.py
+│   │       └── sub_period_calculator.py
+│   └── app.py
+└── README.md
+
+# End of Tree

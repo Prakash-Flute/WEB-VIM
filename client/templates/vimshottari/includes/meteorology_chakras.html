@@ -1,0 +1,72 @@
+<div class="dropdown-container">
+    <div class="dropdown-header" onclick="toggleSection('meteorology-chakras')">
+        <div class="dropdown-title">
+            <span class="dropdown-icon">☸</span>
+            <span>Meteorology Chakras</span>
+        </div>
+        <span class="dropdown-arrow collapsed" id="arrow-meteorology-chakras">▼</span>
+    </div>
+    <div class="dropdown-content collapsed" id="meteorology-chakras">
+        <div class="chakra-combined-container">
+            <div class="chakra-header">
+                <h2>☸ METEOROLOGY CHAKRAS</h2>
+                <div class="chakra-subtitle">Cosmic Weather Prediction System</div>
+            </div>
+            
+            <div class="time-selector">
+                <div class="time-btn" onclick="switchChakraData('birth'); event.stopPropagation();" id="btn-chakra-birth">
+                    🌟 BIRTH DATA
+                </div>
+                <div class="time-btn active" onclick="switchChakraData('target'); event.stopPropagation();" id="btn-chakra-target">
+                    🎯 TARGET DATA  
+                </div>
+                <div class="time-btn live-mode" onclick="switchChakraData('live'); event.stopPropagation();" id="btn-chakra-live">
+                    ⚡ LIVE DATA
+                </div>
+            </div>
+
+            <div class="target-time-display" id="targetTimeControl" style="display: none;">
+                <div class="date-display" id="chakraTargetDateDisplay">{{ result.target_date }}</div>
+                <label>Select Time (24H):</label>
+                <input type="time" id="chakraTargetTime" value="12:00" step="1" class="time-input" onchange="updateChakraTime()">
+                <button type="button" onclick="refreshChakraWithTime()" class="btn-update">Load Chakras</button>
+            </div>
+
+            <div class="status-bar" id="chakraStatus" style="display: none;">
+                Current Mode: <span id="chakraCurrentMode">TARGET</span> | 
+                Time: <span id="chakraCurrentTime">12:00 PM</span> |
+                Active Planets: <span id="chakraPlanetCount">0</span>
+            </div>
+
+            <div class="chakra-section active" id="saptNadiSection">
+                <div class="section-header">
+                    <span class="section-icon">☸</span>
+                    <h2 class="section-title">SAPT NADI CHAKRA</h2>
+                    <span class="section-subtitle">Seven Pulse System</span>
+                </div>
+                <div class="sapt-nadi-container" id="saptNadiContainer">
+                    <div class="nadi-headers" id="nadiHeaders"></div>
+                    <div class="nadi-columns" id="nadiColumns"></div>
+                </div>
+            </div>
+
+            <div class="chakra-section active" id="mandalSection">
+                <div class="section-header">
+                    <span class="section-icon">🔥</span>
+                    <h2 class="section-title">MANDAL CHAKRA</h2>
+                    <span class="section-subtitle">Elemental Classifications</span>
+                </div>
+                <div class="mandal-container" id="mandalContainer"></div>
+            </div>
+
+            <div class="chakra-section active" id="duarSection">
+                <div class="section-header">
+                    <span class="section-icon">🌊</span>
+                    <h2 class="section-title">DUAR CHAKRA</h2>
+                    <span class="section-subtitle">Rain Forecast Gates</span>
+                </div>
+                <div class="duar-container" id="duarContainer"></div>
+            </div>
+        </div>
+    </div>
+</div>

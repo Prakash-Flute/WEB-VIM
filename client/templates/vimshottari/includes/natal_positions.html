@@ -1,0 +1,45 @@
+{% if result.all_planets %}
+<div class="dropdown-container">
+    <div class="dropdown-header" onclick="toggleSection('natal-pos')">
+        <div class="dropdown-title">
+            <span class="dropdown-icon">✨</span>
+            <span>Natal Positions</span>
+        </div>
+        <span class="dropdown-arrow collapsed" id="arrow-natal-pos">▼</span>
+    </div>
+    <div class="dropdown-content collapsed" id="natal-pos">
+        <div class="glass-card table-container" style="border-color: rgba(255, 215, 0, 0.1);">
+            <div class="table-header">
+                <h3 class="table-title" style="color: var(--accent-gold);"><span>🌟</span><span>Natal Positions</span></h3>
+                <span style="color: var(--text-secondary); font-size: 0.85rem;">{{ result.birth_time }}</span>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Planet</th>
+                        <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Longitude</th>
+                        <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Sign</th>
+                        <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Degrees</th>
+                        <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Nakshatra</th>
+                        <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Motion</th>
+                        <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Lord</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for planet_name, planet_data in result.all_planets.items() %}
+                    <tr>
+                        <td><div class="planet-cell"><span class="planet-icon">{{ planet_data.icon }}</span><span style="color: {{ planet_data.color }}">{{ planet_name }}</span></div></td>
+                        <td class="coordinates">{{ planet_data.longitude }}°</td>
+                        <td>{{ planet_data.sign_name }}</td>
+                        <td style="font-family: 'Orbitron', monospace; color: var(--accent-cyan);">{{ planet_data.dms }}</td>
+                        <td style="color: #ffa500;">{{ planet_data.nakshatra_name }} ({{ planet_data.pada }})</td>
+                        <td>{% if planet_data.is_retro %}<span class="retro-badge">⚠ RETRO</span>{% else %}<span style="color: #00ff88; font-weight: 600;">Direct</span>{% endif %}</td>
+                        <td style="color: var(--text-secondary); font-size: 0.9em;">{{ planet_data.lord }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,227 @@
+{% extends "VIMSHOTTARI/base.html" %}
+
+{% block head %}
+{{ super() }}
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cosmic-theme.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include "VIMSHOTTARI/includes/form_section.html" %}
+
+{% if error %}
+<div class="error-message glass-card fade-in">
+    <span>⚠️</span> {{ error }}
+</div>
+{% endif %}
+
+{% if result %}
+<div class="result fade-in" id="result-section">
+    
+    {% include "VIMSHOTTARI/includes/dasha_analysis.html" %}
+    
+    <div class="dropdown-container">
+        <div class="dropdown-header" onclick="toggleSection('natal-pos')">
+            <div class="dropdown-title">
+                <span>Natal Positions</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <button onclick="event.stopPropagation(); showChart();" class="btn-primary" style="padding: 6px 16px; font-size: 0.8rem; margin: 0; width: auto;">Show Chart</button>
+                <span class="dropdown-arrow collapsed" id="arrow-natal-pos">▼</span>
+            </div>
+        </div>
+        <div class="dropdown-content collapsed" id="natal-pos">
+            <div class="glass-card table-container" style="border-color: rgba(255, 215, 0, 0.1);">
+                <div class="table-header">
+                    <h3 class="table-title" style="color: var(--accent-gold);">
+                        <span>Natal Positions</span>
+                    </h3>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <span style="color: var(--accent-cyan); font-family: 'Orbitron', monospace; font-size: 0.9rem;">Sidereal: {{ result.moon_sid }}°</span>
+                        <span style="color: var(--text-secondary); font-size: 0.85rem;">{{ result.birth_time }}</span>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Planet</th>
+                            <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Longitude</th>
+                            <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Sign</th>
+                            <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Degrees</th>
+                            <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Nakshatra</th>
+                            <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Motion</th>
+                            <th style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">Lord</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for planet_name, planet_data in result.all_planets.items() %}
+                        <tr>
+                            <td>
+                                <div class="planet-cell">
+                                    <span class="planet-icon" style="color: {{ planet_data.color }}">{{ planet_data.icon }}</span>
+                                    <span style="color: {{ planet_data.color }}">{{ planet_name }}</span>
+                                </div>
+                            </td>
+                            <td class="coordinates">{{ planet_data.longitude }}°</td>
+                            <td>{{ planet_data.sign_name }}</td>
+                            <td style="font-family: 'Orbitron', monospace; color: var(--accent-cyan);">{{ planet_data.dms }}</td>
+                            <td style="color: #ffa500;">{{ planet_data.nakshatra_name }} ({{ planet_data.pada }})</td>
+                            <td>
+                                {% if planet_name == 'Ascendant' %}
+                                <span style="color: #00ff88; font-weight: 600;">Rising</span>
+                                {% elif planet_data.is_retro %}
+                                <span class="retro-badge">⚠ RETRO</span>
+                                {% else %}
+                                <span style="color: #00ff88; font-weight: 600;">Direct</span>
+                                {% endif %}
+                            </td>
+                            <td style="color: var(--text-secondary); font-size: 0.9em;">{{ planet_data.lord }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% include "VIMSHOTTARI/includes/target_positions.html" %}
+    {% include "VIMSHOTTARI/includes/meteorology_chakras.html" %}
+    
+    <div class="dropdown-container">
+        <div class="dropdown-header" onclick="toggleSection('live-coords')">
+            <div class="dropdown-title">
+                <span class="dropdown-icon">📡</span>
+                <span>Live Coordinates</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <button onclick="event.stopPropagation(); showLiveChart();" class="btn-primary" style="padding: 6px 16px; font-size: 0.8rem; margin: 0; width: auto; background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,140,0,0.1)); border-color: rgba(255,215,0,0.4); color: #ffd700;">Show Transit Chart</button>
+                <span class="dropdown-arrow collapsed" id="arrow-live-coords">▼</span>
+            </div>
+        </div>
+        <div class="dropdown-content collapsed" id="live-coords">
+            <div class="glass-card table-container" id="liveTableSection">
+                <div class="table-header">
+                    <h3 class="table-title">
+                        <span>📡</span>
+                        <span>Live Coordinates</span>
+                    </h3>
+                    <span id="liveDateTime" style="color: var(--text-secondary); font-family: 'Courier New', monospace; font-size: 0.85rem;"></span>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Planet</th>
+                            <th>Longitude</th>
+                            <th>Sign</th>
+                            <th>Degrees</th>
+                            <th>Nakshatra</th>
+                            <th>Status</th>
+                            <th>Speed</th>
+                        </tr>
+                    </thead>
+                    <tbody id="liveTableBody">
+                        <tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text-secondary);">Click dropdown to load live data</td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="live-panel" style="margin-top: 25px; padding: 20px; background: rgba(0, 217, 255, 0.05); border: 1px solid rgba(0, 217, 255, 0.1); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div class="live-indicator" style="display: flex; align-items: center; gap: 12px; font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); font-size: 0.9rem;">
+                        <div class="pulse-dot" style="width: 8px; height: 8px; background: var(--accent-cyan); border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 10px var(--accent-cyan);"></div>
+                        <span>LIVE TRACKING ACTIVE</span>
+                    </div>
+                    <div style="color: var(--text-secondary); font-size: 0.85rem; font-family: 'Courier New', monospace;">
+                        UPDATES EVERY 2 MIN • <span id="lastUpdateTime">Just now</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dropdown-container" style="margin-top: 30px;">
+        <div class="dropdown-header" onclick="toggleCompressionSection()">
+            <div class="dropdown-title">
+                <span class="dropdown-icon">⏱️</span>
+                <span>Compress Dasha Timeline</span>
+            </div>
+            <span class="dropdown-arrow" id="arrow-compression">▼</span>
+        </div>
+        <div class="dropdown-content" id="compressionSection" style="display: none;">
+            <div class="glass-card" style="padding: 25px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 15px;">
+                    <label style="color: var(--accent-gold); font-weight: 600;">Compress 120-year cycle into:</label>
+                    <input type="number" id="compressionValue" value="1" min="0.001" step="any" style="width: 100px; padding: 8px; border-radius: 8px; border: 1px solid var(--border-subtle); background: rgba(0,0,0,0.4); color: #fff;">
+                    <select id="compressionUnit" style="padding: 8px; border-radius: 8px; border: 1px solid var(--border-subtle); background: rgba(0,0,0,0.4); color: #fff;">
+                        <option value="seconds">Seconds</option>
+                        <option value="minutes">Minutes</option>
+                        <option value="hours">Hours</option>
+                        <option value="days">Days</option>
+                        <option value="months">Months</option>
+                        <option value="years">Years</option>
+                    </select>
+                    <button onclick="applyCompression()" class="btn-primary" style="width: auto; padding: 10px 30px; margin: 0;">Apply</button>
+                    <button onclick="resetCompression()" class="btn-secondary-form" style="width: auto; padding: 10px 30px; margin: 0;">Reset</button>
+                    <span id="compressionStatus" style="margin-left: 20px; font-weight: 600; color: #ff4d7d;">Inactive</span>
+                    <span id="compressionIndicator" style="display: none; color: var(--accent-cyan);">(Compressed)</span>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="color: var(--text-secondary); font-size: 0.9rem;">Filter by date range (optional):</label>
+                    <input type="datetime-local" id="filterStart" style="padding: 6px; border-radius: 6px; border: 1px solid var(--border-subtle); background: rgba(0,0,0,0.4); color: #fff; margin-left: 10px;">
+                    <span style="color: var(--text-secondary);">to</span>
+                    <input type="datetime-local" id="filterEnd" style="padding: 6px; border-radius: 6px; border: 1px solid var(--border-subtle); background: rgba(0,0,0,0.4); color: #fff;">
+                    <button onclick="applyDateFilter()" class="btn-update" style="margin-left: 10px;">Filter</button>
+                </div>
+                <div style="margin-bottom: 10px; color: var(--text-secondary); font-size: 0.9rem;">
+                    Total periods: <span id="compressedPeriodCount">0</span>
+                </div>
+                <div id="compressedTableContainer">
+                    <!-- Table will be rendered here -->
+                </div>
+                <div style="margin-top: 20px;">
+                    <button onclick="downloadCompressedPDF()" class="btn-gold" style="padding: 12px 30px;">Download Compressed PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endif %}
+
+<div id="chartModal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); justify-content: center; align-items: center;">
+    <div style="position: relative; background: var(--glass-bg); padding: 30px; border-radius: 24px; border: 1px solid var(--border-subtle); max-width: 550px; width: 90%;">
+        <span onclick="closeChartModal()" style="position: absolute; top: 10px; right: 20px; font-size: 28px; color: var(--text-secondary); cursor: pointer; transition: 0.3s;">&times;</span>
+        <div id="chartModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-cyan); text-align: center; margin-bottom: 15px;"></div>
+        <div id="chartModalContent" style="display: flex; flex-direction: column; align-items: center; min-height: 200px;">
+            <div style="color: var(--text-secondary);">Loading chart...</div>
+        </div>
+    </div>
+</div>
+
+{% include "VIMSHOTTARI/includes/download_modal.html" %}
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/gps-location.js') }}"></script>
+<script src="{{ url_for('static', filename='js/live-tracker.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chakra-renderer.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ui-controller.js') }}"></script>
+<script src="{{ url_for('static', filename='js/compression.js') }}"></script>
+<!-- Add a cache‑busting parameter to force reload of chart.js -->
+<script src="{{ url_for('static', filename='js/chart.js') }}?v=2"></script>
+<script src="{{ url_for('static', filename='js/vimshottari-main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sheet-integration.js') }}"></script>
+{% if result %}
+<script>
+window.natalPlanetsData = {{ result.all_planets|tojson }};
+window.karveAscendant = "{{ result.karve_ascendant if result.karve_ascendant else '' }}";
+console.log("[Karve] window.karveAscendant =", window.karveAscendant);
+</script>
+{% endif %}
+<script>
+    window.showChart = showChart;
+    window.showLiveChart = showLiveChart;
+    window.closeChartModal = closeChartModal;
+</script>
+{% endblock %}

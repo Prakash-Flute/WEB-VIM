@@ -1,0 +1,46 @@
+<div class="dropdown-container">
+    <div class="dropdown-header" onclick="toggleSection('target-pos')">
+        <div class="dropdown-title">
+            <span class="dropdown-icon">🎯</span>
+            <span>Target Date Positions</span>
+        </div>
+        <span class="dropdown-arrow collapsed" id="arrow-target-pos">▼</span>
+    </div>
+    <div class="dropdown-content collapsed" id="target-pos">
+        <div class="glass-card table-container" style="border-color: rgba(0, 217, 255, 0.2);">
+            <div class="table-header">
+                <h3 class="table-title" style="color: var(--accent-cyan);">
+                    <span>🎯</span>
+                    <span>Target Date Planetary Positions</span>
+                </h3>
+                <div class="time-picker-container">
+                    <span style="color: var(--text-secondary); font-size: 0.85rem; margin-right: 10px;">{{ result.target_date }}</span>
+                    <label>Time:</label>
+                    <input type="time" id="targetTableTime" value="12:00" step="1" class="time-input">
+                    <button type="button" onclick="updateTargetPlanetaryTable()" class="btn-update">Update</button>
+                </div>
+            </div>
+            <div style="color: rgba(255,255,255,0.4); font-size: 0.75rem; margin: -15px 0 20px 0; text-align: right; font-style: italic; letter-spacing: 0.5px;">
+                * Default: 12:00:00 PM (Noon) • Adjust time to see planetary positions at specific hour *
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th style="background: rgba(0, 217, 255, 0.1); color: var(--accent-cyan);">Planet</th>
+                        <th style="background: rgba(0, 217, 255, 0.1); color: var(--accent-cyan);">Longitude</th>
+                        <th style="background: rgba(0, 217, 255, 0.1); color: var(--accent-cyan);">Sign</th>
+                        <th style="background: rgba(0, 217, 255, 0.1); color: var(--accent-cyan);">Degrees</th>
+                        <th style="background: rgba(0, 217, 255, 0.1); color: var(--accent-cyan);">Nakshatra</th>
+                        <th style="background: rgba(0, 217, 255, 0.1); color: var(--accent-cyan);">Motion</th>
+                        <th style="background: rgba(0, 217, 255, 0.1); color: var(--accent-cyan);">Lord</th>
+                    </tr>
+                </thead>
+                <tbody id="targetPlanetaryBody">
+                    <tr>
+                        <td colspan="7" style="text-align:center;padding:30px;color:var(--accent-cyan);">🌌 Click dropdown to load target date planetary positions...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

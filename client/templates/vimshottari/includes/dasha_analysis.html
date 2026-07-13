@@ -1,0 +1,1037 @@
+<!-- ============================================================
+     SPLIT DASHA NAVIGATOR + INFO PANELS (FINAL - ALL 5 ROWS VISIBLE)
+     ============================================================ -->
+
+<div class="dasha-split-container">
+  <!-- LEFT COLUMN: NAVIGATOR -->
+  <div class="dasha-left">
+    <div class="dasha-navigator">
+      <div class="nav-top" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div class="nav-title">Dasha</div>
+        <select id="cycleSelectorLeft" class="cycle-select" style="background: rgba(20,20,35,0.8); border: 1px solid rgba(240,192,64,0.3); border-radius: 16px; padding: 2px 22px 2px 8px; color: #f0c040; font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2px; appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22%3E%3Cpath d=%22M0 0l5 6 5-6z%22 fill=%22%23f0c040%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 6px center; background-size: 10px 6px; cursor: pointer; outline: none; min-width: 70px; max-width: 110px;">
+          <!-- options filled by JS -->
+        </select>
+      </div>
+      <div class="dasha-list-wrap" id="dashaListWrap">
+        <div id="dashaList"></div>
+      </div>
+      <button class="nav-back-btn" id="navBackBtn" disabled>Back</button>
+      <div class="nav-notes">
+        <span>Dates shown are dasha ending dates.</span>
+        <span>Tap any row to show next Dasha.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN: INFO PANELS + TOOLS -->
+  <div class="dasha-right">
+    <!-- Top row: Birth Dasha and Today's Dasha -->
+    <div class="dasha-row-pair">
+      <div class="info-panel compact shimmer">
+        <div class="panel-header">
+          <div class="panel-title">Birth</div>
+          <div class="panel-badge">Natal</div>
+        </div>
+        <div class="panel-grid compact-grid" id="birthDashaPanel">
+          <div class="panel-row"><span class="panel-lord" id="birthMD">—</span><span class="panel-date" id="birthMDEnd">—</span></div>
+          <div class="panel-row"><span class="panel-lord" id="birthAD">—</span><span class="panel-date" id="birthADEnd">—</span></div>
+          <div class="panel-row"><span class="panel-lord" id="birthPD">—</span><span class="panel-date" id="birthPDEnd">—</span></div>
+          <div class="panel-row"><span class="panel-lord" id="birthSD">—</span><span class="panel-date" id="birthSDEnd">—</span></div>
+          <div class="panel-row"><span class="panel-lord" id="birthPR">—</span><span class="panel-date" id="birthPREnd">—</span></div>
+        </div>
+      </div>
+
+      <div class="info-panel compact shimmer">
+        <div class="panel-header">
+          <div class="panel-title">Today</div>
+          <div class="panel-badge">Live</div>
+        </div>
+        <div class="panel-grid compact-grid" id="todayDashaPanel">
+          <div class="panel-row"><span class="panel-lord" id="todayMD">—</span><span class="panel-date" id="todayMDEnd">—</span></div>
+          <div class="panel-row"><span class="panel-lord" id="todayAD">—</span><span class="panel-date" id="todayADEnd">—</span></div>
+          <div class="panel-row"><span class="panel-lord" id="todayPD">—</span><span class="panel-date" id="todayPDEnd">—</span></div>
+          <div class="panel-row"><span class="panel-lord" id="todaySD">—</span><span class="panel-date" id="todaySDEnd">—</span></div>
+          <div class="panel-row"><span class="panel-lord" id="todayPR">—</span><span class="panel-date" id="todayPREnd">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Random Date Dasha Panel -->
+    <div class="info-panel compact shimmer" id="randomDatePanel">
+      <div class="panel-header">
+        <div class="panel-title">Random Date Dasha</div>
+        <div class="panel-badge">Custom</div>
+      </div>
+      <div class="tool-row" style="margin-bottom: 8px;">
+        <input type="date" id="randomDate" class="tool-input" />
+        <input type="time" id="randomTime" class="tool-input" value="12:00" />
+        <button class="tool-btn" id="randomDateBtn">Calculate</button>
+      </div>
+      <div class="panel-grid compact-grid" id="randomDashaPanel">
+        <div class="panel-row"><span class="panel-lord" id="randomMD">—</span><span class="panel-date" id="randomMDEnd">—</span></div>
+        <div class="panel-row"><span class="panel-lord" id="randomAD">—</span><span class="panel-date" id="randomADEnd">—</span></div>
+        <div class="panel-row"><span class="panel-lord" id="randomPD">—</span><span class="panel-date" id="randomPDEnd">—</span></div>
+        <div class="panel-row"><span class="panel-lord" id="randomSD">—</span><span class="panel-date" id="randomSDEnd">—</span></div>
+        <div class="panel-row"><span class="panel-lord" id="randomPR">—</span><span class="panel-date" id="randomPREnd">—</span></div>
+      </div>
+    </div>
+
+    <!-- Manual Dasha Lookup Panel -->
+    <div class="info-panel compact shimmer" id="manualLookupPanel">
+      <div class="panel-header">
+        <div class="panel-title">Manual Dasha Lookup</div>
+        <div class="panel-badge" style="display:flex; align-items:center; gap:4px;">
+          <select id="cycleSelectorManual" class="cycle-select" style="background: rgba(20,20,35,0.8); border: 1px solid rgba(240,192,64,0.3); border-radius: 16px; padding: 1px 18px 1px 6px; color: #f0c040; font-family: 'Inter', sans-serif; font-size: 0.55rem; font-weight: 500; letter-spacing: 0.2px; appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22%3E%3Cpath d=%22M0 0l5 6 5-6z%22 fill=%22%23f0c040%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 4px center; background-size: 8px 5px; cursor: pointer; outline: none; min-width: 50px; max-width: 90px;">
+            <!-- options filled by JS -->
+          </select>
+        </div>
+      </div>
+      <div class="tool-row" style="margin-bottom: 8px;">
+        <input type="text" id="manualInput" class="tool-input manual-input" placeholder="e.g. Ra/Sa/Ju/Ma/Ve" />
+        <button class="tool-btn" id="manualDashaBtn">Find</button>
+      </div>
+      <div class="panel-grid compact-grid" id="manualDashaPanel">
+        <div class="panel-row"><span class="panel-lord" id="manualMD">—</span><span class="panel-date" id="manualMDEnd">—</span></div>
+        <div class="panel-row"><span class="panel-lord" id="manualAD">—</span><span class="panel-date" id="manualADEnd">—</span></div>
+        <div class="panel-row"><span class="panel-lord" id="manualPD">—</span><span class="panel-date" id="manualPDEnd">—</span></div>
+        <div class="panel-row"><span class="panel-lord" id="manualSD">—</span><span class="panel-date" id="manualSDEnd">—</span></div>
+        <div class="panel-row"><span class="panel-lord" id="manualPR">—</span><span class="panel-date" id="manualPREnd">—</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-card: rgba(255,255,255,0.03);
+    --bg-card-hover: rgba(255,255,255,0.05);
+    --border-subtle: rgba(255,255,255,0.06);
+    --border-glow: rgba(240,192,64,0.15);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255,255,255,0.6);
+    --text-muted: rgba(255,255,255,0.3);
+    --accent-gold: #f0c040;
+    --accent-gold-dim: rgba(240,192,64,0.1);
+    --accent-blue: #60a5fa;
+    --accent-purple: #a78bfa;
+    --font-primary: 'Inter', sans-serif;
+    --font-display: 'Orbitron', sans-serif;
+  }
+
+  .dasha-split-container {
+    display: flex;
+    gap: 20px;
+    background: #0a0a0f;
+    border-radius: 24px;
+    border: 1px solid var(--border-subtle);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    min-height: auto;
+    align-items: stretch;
+  }
+
+  .dasha-left {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-right: 16px;
+    border-right: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dasha-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 16px;
+    overflow-y: auto;
+    max-height: 620px;
+  }
+
+  .dasha-right::-webkit-scrollbar {
+    width: 4px;
+  }
+  .dasha-right::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .dasha-right::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+  }
+
+  .dasha-navigator {
+    background: transparent;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    margin-bottom: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .dasha-navigator .nav-title {
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    font-family: var(--font-display);
+    letter-spacing: 1px;
+  }
+  .dasha-list-wrap {
+    flex: 1;
+    margin: 4px 0 10px 0;
+    padding-right: 4px;
+    max-height: none;
+    overflow-y: visible;
+  }
+  .dasha-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.02);
+    margin-bottom: 4px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .dasha-row:hover {
+    background: rgba(255,255,255,0.06);
+  }
+  .dasha-row .dasha-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #fff;
+  }
+  .dasha-row .dasha-date {
+    font-size: 0.75rem;
+    color: var(--accent-gold);
+    font-family: 'Courier New', monospace;
+    text-align: right;
+    text-shadow: 0 0 6px rgba(240,192,64,0.2);
+  }
+  .dasha-row.active-row {
+    background: rgba(240,192,64,0.12);
+    border-color: rgba(240,192,64,0.25);
+  }
+
+  .nav-back-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 12px;
+    background: #ffd700;
+    border: none;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #0a0a0f;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: var(--font-primary);
+    box-shadow: 0 4px 16px rgba(255,215,0,0.25);
+  }
+  .nav-back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255,215,0,0.4);
+  }
+  .nav-back-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .nav-notes {
+    margin-top: 8px;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.2);
+    text-align: left;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+  }
+  .nav-notes span {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .dasha-row-pair {
+    display: flex;
+    gap: 12px;
+  }
+
+  .info-panel {
+    background: var(--bg-card);
+    border-radius: 14px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-subtle);
+    position: relative;
+    overflow: visible;
+    transition: all 0.3s ease;
+    flex: 1;
+  }
+
+  .info-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-gold), transparent, var(--accent-gold));
+    opacity: 0.3;
+  }
+
+  .info-panel:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-glow);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 20px rgba(240,192,64,0.05);
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .panel-title {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--accent-gold);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .panel-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    box-shadow: 0 0 8px var(--accent-gold);
+  }
+
+  .panel-badge {
+    font-size: 0.45rem;
+    padding: 1px 8px;
+    border-radius: 20px;
+    background: var(--accent-gold-dim);
+    color: var(--accent-gold);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+  }
+
+  .compact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow: visible;
+  }
+
+  .panel-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    padding: 1px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.02);
+    min-height: 20px;
+  }
+
+  .panel-row:last-child {
+    border-bottom: none;
+  }
+
+  .panel-lord {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.75rem;
+  }
+
+  .panel-date {
+    color: var(--accent-gold);
+    font-family: 'Courier New', monospace;
+    font-size: 0.65rem;
+    text-shadow: 0 0 8px rgba(240,192,64,0.15);
+    text-align: right;
+    letter-spacing: 0.2px;
+  }
+
+  .tool-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+
+  .tool-input {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 4px 10px;
+    color: var(--text-primary);
+    font-size: 0.7rem;
+    font-family: var(--font-primary);
+    outline: none;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 90px;
+  }
+
+  .tool-input:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 12px rgba(240,192,64,0.1);
+  }
+
+  .manual-input {
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+
+  .tool-btn {
+    background: linear-gradient(135deg, rgba(240,192,64,0.15), rgba(240,192,64,0.05));
+    border: 1px solid rgba(240,192,64,0.25);
+    border-radius: 6px;
+    padding: 4px 14px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+  }
+
+  .tool-btn:hover {
+    background: linear-gradient(135deg, rgba(240,192,64,0.25), rgba(240,192,64,0.1));
+    border-color: var(--accent-gold);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(240,192,64,0.2);
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .info-panel {
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  .info-panel:nth-child(1) { animation-delay: 0.05s; }
+  .info-panel:nth-child(2) { animation-delay: 0.1s; }
+  .info-panel:nth-child(3) { animation-delay: 0.15s; }
+  .info-panel:nth-child(4) { animation-delay: 0.2s; }
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.02), transparent);
+    animation: shimmer 4s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  @media (max-width: 860px) {
+    .dasha-split-container {
+      flex-direction: column;
+    }
+    .dasha-left {
+      flex: 1;
+      max-width: 100%;
+      padding-right: 0;
+      border-right: none;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 16px;
+    }
+    .dasha-right {
+      padding-left: 0;
+      max-height: none;
+      overflow-y: visible;
+    }
+    .dasha-row-pair {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .dasha-split-container { padding: 16px; }
+    .info-panel { padding: 6px 10px; }
+    .panel-lord { font-size: 0.7rem; }
+    .panel-date { font-size: 0.6rem; }
+    .tool-row { gap: 4px; }
+    .tool-input { min-width: 60px; padding: 3px 6px; font-size: 0.65rem; }
+  }
+</style>
+
+<script>
+(function() {
+  // ----- Data from backend (only cycle metadata and initial tree) -----
+  let cycleMetadata = [];
+  let initialTree = [];
+  try {
+    cycleMetadata = {{ result.cycle_metadata|tojson|safe if result and result.cycle_metadata else '[]' }};
+    initialTree = {{ result.initial_cycle_data|tojson|safe if result and result.initial_cycle_data else '[]' }};
+  } catch(e) {
+    cycleMetadata = [];
+    initialTree = [];
+    console.warn('cycle data not available');
+  }
+
+  // Original birth data for panels
+  const birthData = {
+    md: '{{ result.birth_md }}',
+    ad: '{{ result.birth_ad }}',
+    pd: '{{ result.birth_pd }}',
+    sd: '{{ result.birth_sd }}',
+    pr: '{{ result.birth_pr }}'
+  };
+  // Find the offset 0 entry to get the original md start
+  let offsetZero = cycleMetadata.find(m => m.offset === 0);
+  const originalMdStart = offsetZero ? new Date(offsetZero.start_iso) : new Date();
+  let currentTree = initialTree;  // will be updated when cycle changes
+  let currentMdStart = originalMdStart;
+
+  // ----- Mapping full names to abbreviations -----
+  const FULL_TO_ABBR = {
+    'Sun': 'Su', 'Moon': 'Mo', 'Mars': 'Ma', 'Mercury': 'Me',
+    'Jupiter': 'Ju', 'Venus': 'Ve', 'Saturn': 'Sa', 'Rahu': 'Ra', 'Ketu': 'Ke'
+  };
+  const ABBR_TO_FULL = {};
+  for (const [full, abbr] of Object.entries(FULL_TO_ABBR)) {
+    ABBR_TO_FULL[abbr.toLowerCase()] = full;
+  }
+
+  function normalizeAbbr(input) {
+    if (!input) return null;
+    const lower = input.toLowerCase();
+    for (const [full, abbr] of Object.entries(FULL_TO_ABBR)) {
+      if (abbr.toLowerCase() === lower) return abbr;
+    }
+    return null;
+  }
+
+  function formatDate(isoStr) {
+    if (!isoStr) return '—';
+    const d = new Date(isoStr);
+    return d.toLocaleString('en-GB', {
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+  }
+
+  // ============================================================
+  //  POPULATE PANEL (generic)
+  // ============================================================
+  function populatePanel(prefix, period) {
+    const levels = ['MD', 'AD', 'PD', 'SD', 'PR'];
+    const keys = ['md', 'ad', 'pd', 'sd', 'pr'];
+    for (let i = 0; i < levels.length; i++) {
+      const key = keys[i];
+      const levelObj = period ? period[key] : null;
+      const lord = levelObj ? levelObj.lord : null;
+      const end = levelObj ? levelObj.end : null;
+      const lordEl = document.getElementById(prefix + levels[i]);
+      const dateEl = document.getElementById(prefix + levels[i] + 'End');
+      if (lordEl) {
+        lordEl.textContent = lord ? FULL_TO_ABBR[lord] || lord : '—';
+      }
+      if (dateEl) {
+        dateEl.textContent = end ? formatDate(end) : '—';
+      }
+    }
+  }
+
+  // ============================================================
+  //  FIND PERIOD AT TIME (given tree and mdStart)
+  // ============================================================
+  function findPeriodAtTime(targetTime, tree, mdStart) {
+    if (!tree || !tree.length) return null;
+
+    for (let mi = 0; mi < tree.length; mi++) {
+      const mdItem = tree[mi];
+      const mdStartTime = (mi === 0) ? mdStart : new Date(tree[mi-1].end);
+      const mdEndTime = new Date(mdItem.end);
+      if (targetTime < mdStartTime || targetTime > mdEndTime) continue;
+
+      const adChildren = mdItem.children || [];
+      for (let ai = 0; ai < adChildren.length; ai++) {
+        const adItem = adChildren[ai];
+        const adStartTime = (ai === 0) ? mdStartTime : new Date(adChildren[ai-1].end);
+        const adEndTime = new Date(adItem.end);
+        if (targetTime < adStartTime || targetTime > adEndTime) continue;
+
+        const pdChildren = adItem.children || [];
+        for (let pi = 0; pi < pdChildren.length; pi++) {
+          const pdItem = pdChildren[pi];
+          const pdStartTime = (pi === 0) ? adStartTime : new Date(pdChildren[pi-1].end);
+          const pdEndTime = new Date(pdItem.end);
+          if (targetTime < pdStartTime || targetTime > pdEndTime) continue;
+
+          const sdChildren = pdItem.children || [];
+          for (let si = 0; si < sdChildren.length; si++) {
+            const sdItem = sdChildren[si];
+            const sdStartTime = (si === 0) ? pdStartTime : new Date(sdChildren[si-1].end);
+            const sdEndTime = new Date(sdItem.end);
+            if (targetTime < sdStartTime || targetTime > sdEndTime) continue;
+
+            const prChildren = sdItem.children || [];
+            for (let ri = 0; ri < prChildren.length; ri++) {
+              const prItem = prChildren[ri];
+              const prStartTime = (ri === 0) ? sdStartTime : new Date(prChildren[ri-1].end);
+              const prEndTime = new Date(prItem.end);
+              if (targetTime >= prStartTime && targetTime < prEndTime) {
+                return {
+                  md: mdItem, ad: adItem, pd: pdItem, sd: sdItem, pr: prItem
+                };
+              }
+            }
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  // ============================================================
+  //  FIND PERIOD BY LORDS (given tree)
+  // ============================================================
+  function findPeriodByLords(mdLord, adLord, pdLord, sdLord, prLord, tree) {
+    if (mdLord && adLord && pdLord && sdLord && prLord) {
+      for (let mi = 0; mi < tree.length; mi++) {
+        const mdItem = tree[mi];
+        if (mdItem.lord !== mdLord) continue;
+        for (let ai = 0; ai < mdItem.children.length; ai++) {
+          const adItem = mdItem.children[ai];
+          if (adItem.lord !== adLord) continue;
+          for (let pi = 0; pi < adItem.children.length; pi++) {
+            const pdItem = adItem.children[pi];
+            if (pdItem.lord !== pdLord) continue;
+            for (let si = 0; si < pdItem.children.length; si++) {
+              const sdItem = pdItem.children[si];
+              if (sdItem.lord !== sdLord) continue;
+              for (let ri = 0; ri < sdItem.children.length; ri++) {
+                const prItem = sdItem.children[ri];
+                if (prItem.lord === prLord) {
+                  return { md: mdItem, ad: adItem, pd: pdItem, sd: sdItem, pr: prItem };
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (mdLord && adLord && pdLord && sdLord) {
+      for (let mi = 0; mi < tree.length; mi++) {
+        const mdItem = tree[mi];
+        if (mdItem.lord !== mdLord) continue;
+        for (let ai = 0; ai < mdItem.children.length; ai++) {
+          const adItem = mdItem.children[ai];
+          if (adItem.lord !== adLord) continue;
+          for (let pi = 0; pi < adItem.children.length; pi++) {
+            const pdItem = adItem.children[pi];
+            if (pdItem.lord !== pdLord) continue;
+            for (let si = 0; si < pdItem.children.length; si++) {
+              const sdItem = pdItem.children[si];
+              if (sdItem.lord !== sdLord) continue;
+              return { md: mdItem, ad: adItem, pd: pdItem, sd: sdItem, pr: null };
+            }
+          }
+        }
+      }
+    }
+    if (mdLord && adLord && pdLord) {
+      for (let mi = 0; mi < tree.length; mi++) {
+        const mdItem = tree[mi];
+        if (mdItem.lord !== mdLord) continue;
+        for (let ai = 0; ai < mdItem.children.length; ai++) {
+          const adItem = mdItem.children[ai];
+          if (adItem.lord !== adLord) continue;
+          for (let pi = 0; pi < adItem.children.length; pi++) {
+            const pdItem = adItem.children[pi];
+            if (pdItem.lord !== pdLord) continue;
+            return { md: mdItem, ad: adItem, pd: pdItem, sd: null, pr: null };
+          }
+        }
+      }
+    }
+    if (mdLord && adLord) {
+      for (let mi = 0; mi < tree.length; mi++) {
+        const mdItem = tree[mi];
+        if (mdItem.lord !== mdLord) continue;
+        for (let ai = 0; ai < mdItem.children.length; ai++) {
+          const adItem = mdItem.children[ai];
+          if (adItem.lord !== adLord) continue;
+          return { md: mdItem, ad: adItem, pd: null, sd: null, pr: null };
+        }
+      }
+    }
+    if (mdLord) {
+      for (let mi = 0; mi < tree.length; mi++) {
+        const mdItem = tree[mi];
+        if (mdItem.lord === mdLord) {
+          return { md: mdItem, ad: null, pd: null, sd: null, pr: null };
+        }
+      }
+    }
+    return null;
+  }
+
+  // ============================================================
+  //  LEFT NAVIGATOR – with cycle dropdown (lazy load)
+  // ============================================================
+  let leftCurrentLevel = 0;
+  let leftCurrentPath = [];
+  let leftCurrentTree = currentTree;
+  let leftCurrentMdStart = currentMdStart;
+
+  const listEl = document.getElementById('dashaList');
+  const backBtn = document.getElementById('navBackBtn');
+  const leftSelector = document.getElementById('cycleSelectorLeft');
+
+  // Populate left dropdown – show only year ranges (no labels)
+  leftSelector.innerHTML = '';
+  if (cycleMetadata.length > 0) {
+    // Sort by offset to keep order: past (-1), then 0,1,2...
+    const sorted = [...cycleMetadata].sort((a,b) => a.offset - b.offset);
+    sorted.forEach((meta) => {
+      const opt = document.createElement('option');
+      opt.value = meta.offset;
+      // Only years: "start-end"
+      opt.textContent = `${meta.start_year}–${meta.end_year}`;
+      leftSelector.appendChild(opt);
+    });
+    // select the offset 0 entry
+    leftSelector.value = 0;
+  } else {
+    const opt = document.createElement('option');
+    opt.value = 0;
+    opt.textContent = 'Cycle 0';
+    leftSelector.appendChild(opt);
+  }
+
+  function getItemsAtLevel(level, path, tree) {
+    let node = tree;
+    for (let i = 0; i < level; i++) {
+      if (i < path.length) {
+        const idx = path[i];
+        if (node && node[idx] && node[idx].children) {
+          node = node[idx].children;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    }
+    return node || [];
+  }
+
+  function getAncestorLords(level, path, tree) {
+    const lords = [];
+    let node = tree;
+    for (let i = 0; i < level; i++) {
+      if (i < path.length) {
+        const idx = path[i];
+        if (node && node[idx]) {
+          lords.push(node[idx].lord);
+          node = node[idx].children;
+        } else {
+          break;
+        }
+      } else {
+        break;
+      }
+    }
+    return lords;
+  }
+
+  function getFullName(level, path, rowIdx, tree) {
+    const items = getItemsAtLevel(level, path, tree);
+    if (!items || rowIdx >= items.length) return '';
+    const ancestors = getAncestorLords(level, path, tree);
+    const currentLord = items[rowIdx].lord;
+    const nameParts = ancestors.concat(currentLord).map(l => FULL_TO_ABBR[l] || l);
+    return nameParts.join('/');
+  }
+
+  function renderLeftNavigator() {
+    const items = getItemsAtLevel(leftCurrentLevel, leftCurrentPath, leftCurrentTree);
+    if (!items || items.length === 0) {
+      listEl.innerHTML = '<div style="padding:20px;text-align:center;color:rgba(255,255,255,0.3);">No entries</div>';
+      return;
+    }
+    let html = '';
+    items.forEach((item, idx) => {
+      const fullName = getFullName(leftCurrentLevel, leftCurrentPath, idx, leftCurrentTree);
+      const dateStr = item.end ? formatDate(item.end) : '—';
+      const isActive = (leftCurrentLevel < 4 && leftCurrentPath.length > leftCurrentLevel && leftCurrentPath[leftCurrentLevel] === idx);
+      html += `
+        <div class="dasha-row ${isActive ? 'active-row' : ''}" data-idx="${idx}">
+          <span class="dasha-name">${fullName}</span>
+          <span class="dasha-date">${dateStr}</span>
+        </div>
+      `;
+    });
+    listEl.innerHTML = html;
+    backBtn.disabled = (leftCurrentLevel === 0);
+  }
+
+  function goToLevel(level, path) {
+    if (level > 4) level = 4;
+    if (level < 0) level = 0;
+    leftCurrentLevel = level;
+    leftCurrentPath = path.slice(0, level);
+    renderLeftNavigator();
+  }
+
+  function drillDown(idx) {
+    if (leftCurrentLevel >= 4) return;
+    const items = getItemsAtLevel(leftCurrentLevel, leftCurrentPath, leftCurrentTree);
+    if (!items || idx >= items.length) return;
+    const item = items[idx];
+    if (!item.children || item.children.length === 0) return;
+    const newPath = leftCurrentPath.slice(0, leftCurrentLevel);
+    newPath.push(idx);
+    goToLevel(leftCurrentLevel + 1, newPath);
+  }
+
+  function goBack() {
+    if (leftCurrentLevel === 0) return;
+    const newPath = leftCurrentPath.slice(0, leftCurrentLevel - 1);
+    goToLevel(leftCurrentLevel - 1, newPath);
+  }
+
+  listEl.addEventListener('click', function(e) {
+    const row = e.target.closest('.dasha-row');
+    if (!row) return;
+    const idx = parseInt(row.dataset.idx, 10);
+    if (!isNaN(idx)) drillDown(idx);
+  });
+
+  backBtn.addEventListener('click', goBack);
+
+  // ----- Left dropdown change → fetch new cycle data -----
+  leftSelector.addEventListener('change', function() {
+    const offset = parseInt(this.value);
+    // find metadata for this offset
+    const meta = cycleMetadata.find(m => m.offset === offset);
+    if (meta) {
+      fetch(`/api/cycle-data?offset=${offset}&md_start=${encodeURIComponent(originalMdStart.toISOString())}&nak_lord=${encodeURIComponent('{{ result.nak_lord }}')}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            leftCurrentTree = data.data;
+            leftCurrentMdStart = new Date(meta.start_iso);
+            goToLevel(0, []);
+          } else {
+            console.error('Failed to fetch cycle data:', data.error);
+          }
+        })
+        .catch(err => console.error('Fetch error:', err));
+    }
+  });
+
+  // Initial render with cycle 0 (offset 0)
+  goToLevel(0, []);
+
+  // ============================================================
+  //  BIRTH PANEL (fixed, uses original birth data)
+  // ============================================================
+  const birthPeriod = findPeriodByLords(
+    birthData.md, birthData.ad, birthData.pd, birthData.sd, birthData.pr,
+    initialTree
+  );
+  if (birthPeriod) {
+    populatePanel('birth', {
+      md: birthPeriod.md, ad: birthPeriod.ad, pd: birthPeriod.pd,
+      sd: birthPeriod.sd, pr: birthPeriod.pr
+    });
+  } else {
+    populatePanel('birth', null);
+  }
+
+  // ============================================================
+  //  TODAY PANEL – uses initialTree (cycle 0)
+  // ============================================================
+  function updateToday() {
+    const now = new Date();
+    const period = findPeriodAtTime(now, initialTree, originalMdStart);
+    if (period) {
+      populatePanel('today', {
+        md: period.md, ad: period.ad, pd: period.pd,
+        sd: period.sd, pr: period.pr
+      });
+    } else {
+      populatePanel('today', null);
+    }
+  }
+  updateToday();
+
+  // ============================================================
+  //  RANDOM DATE – use currently loaded cycle tree (from dropdown)
+  // ============================================================
+  function findCycleForDate(dt) {
+    // Determine which cycle (by offset) the date falls into
+    for (let i = 0; i < cycleMetadata.length - 1; i++) {
+      const start = new Date(cycleMetadata[i].start_iso);
+      const end = new Date(cycleMetadata[i+1].start_iso);
+      if (dt >= start && dt < end) return cycleMetadata[i].offset;
+    }
+    const lastStart = new Date(cycleMetadata[cycleMetadata.length-1].start_iso);
+    if (dt >= lastStart) return cycleMetadata[cycleMetadata.length-1].offset;
+    return 0;
+  }
+
+  document.getElementById('randomDateBtn').addEventListener('click', function() {
+    const dateVal = document.getElementById('randomDate').value;
+    const timeVal = document.getElementById('randomTime').value;
+    if (!dateVal) {
+      populatePanel('random', null);
+      return;
+    }
+    const dt = new Date(dateVal + 'T' + (timeVal || '12:00:00'));
+    if (isNaN(dt)) {
+      populatePanel('random', null);
+      return;
+    }
+    const cycleIdx = findCycleForDate(dt);
+    // Use the current tree (which is the one selected in left dropdown)
+    // If the date falls in a different cycle, user should select that cycle from dropdown first.
+    const period = findPeriodAtTime(dt, leftCurrentTree, leftCurrentMdStart);
+    if (period) {
+      populatePanel('random', {
+        md: period.md, ad: period.ad, pd: period.pd,
+        sd: period.sd, pr: period.pr
+      });
+    } else {
+      populatePanel('random', null);
+    }
+  });
+
+  // ============================================================
+  //  MANUAL LOOKUP – uses its own dropdown to fetch cycle
+  // ============================================================
+  const manualSelector = document.getElementById('cycleSelectorManual');
+  manualSelector.innerHTML = '';
+  if (cycleMetadata.length > 0) {
+    const sorted = [...cycleMetadata].sort((a,b) => a.offset - b.offset);
+    sorted.forEach((meta) => {
+      const opt = document.createElement('option');
+      opt.value = meta.offset;
+      // Only years: "start-end"
+      opt.textContent = `${meta.start_year}–${meta.end_year}`;
+      manualSelector.appendChild(opt);
+    });
+    // select offset 0
+    manualSelector.value = 0;
+  } else {
+    const opt = document.createElement('option');
+    opt.value = 0;
+    opt.textContent = 'Cycle 0';
+    manualSelector.appendChild(opt);
+  }
+
+  let manualTree = initialTree;
+  let manualMdStart = originalMdStart;
+
+  manualSelector.addEventListener('change', function() {
+    const offset = parseInt(this.value);
+    const meta = cycleMetadata.find(m => m.offset === offset);
+    if (meta) {
+      fetch(`/api/cycle-data?offset=${offset}&md_start=${encodeURIComponent(originalMdStart.toISOString())}&nak_lord=${encodeURIComponent('{{ result.nak_lord }}')}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            manualTree = data.data;
+            manualMdStart = new Date(meta.start_iso);
+          } else {
+            console.error('Failed to fetch cycle data for manual:', data.error);
+          }
+        })
+        .catch(err => console.error('Fetch error:', err));
+    }
+  });
+  // Trigger initial fetch for cycle 0
+  manualSelector.dispatchEvent(new Event('change'));
+
+  const manualInput = document.getElementById('manualInput');
+  manualInput.addEventListener('input', function() {
+    let raw = this.value.replace(/[^a-zA-Z]/g, '');
+    if (raw.length > 10) raw = raw.slice(0, 10);
+    const chunks = [];
+    for (let i = 0; i < raw.length; i += 2) {
+      chunks.push(raw.slice(i, i + 2));
+    }
+    const formatted = chunks.join('/');
+    if (this.value !== formatted) {
+      this.value = formatted;
+      this.setSelectionRange(formatted.length, formatted.length);
+    }
+  });
+
+  document.getElementById('manualDashaBtn').addEventListener('click', function() {
+    const inputVal = manualInput.value.trim();
+    if (!inputVal) {
+      populatePanel('manual', null);
+      return;
+    }
+    const parts = inputVal.split('/').map(s => s.trim()).filter(s => s.length > 0);
+    if (parts.length === 0) {
+      populatePanel('manual', null);
+      return;
+    }
+
+    const normalized = parts.map(p => normalizeAbbr(p));
+    const invalidIndex = normalized.findIndex(n => n === null);
+    if (invalidIndex !== -1) {
+      populatePanel('manual', null);
+      return;
+    }
+
+    const fullNames = normalized.map(abbr => ABBR_TO_FULL[abbr.toLowerCase()]);
+    while (fullNames.length < 5) fullNames.push(null);
+    const [md, ad, pd, sd, pr] = fullNames;
+
+    const period = findPeriodByLords(md, ad, pd, sd, pr, manualTree);
+    if (period) {
+      populatePanel('manual', {
+        md: period.md, ad: period.ad, pd: period.pd,
+        sd: period.sd, pr: period.pr
+      });
+    } else {
+      populatePanel('manual', null);
+    }
+  });
+
+})();
+</script>

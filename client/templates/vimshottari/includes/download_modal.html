@@ -1,0 +1,40 @@
+<!-- DOWNLOAD MODAL -->
+<div id="downloadModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeDownloadModal()">&times;</span>
+        <h2 class="modal-title">📥 Download Report</h2>
+        <p class="modal-subtitle">Complete Vimshottari Dasha Cycle</p>
+        
+        <div class="download-list">
+            <form method="post" action="{{ url_for('download_full_cycle_pdf') }}">
+                <input type="hidden" name="dob" value="{{ form_data.dob }}">
+                <input type="hidden" name="tob" value="{{ form_data.tob }}">
+                <input type="hidden" name="lat" value="{{ form_data.lat }}">
+                <input type="hidden" name="lon" value="{{ form_data.lon }}">
+                <input type="hidden" name="tz" value="{{ form_data.tz }}">
+                <input type="hidden" name="target" value="{{ form_data.target }}">
+                <input type="hidden" name="cycle_offset" value="0">
+                <button type="submit" class="download-btn primary">
+                    <span>⬇</span> Current Cycle (120 Years)
+                </button>
+            </form>
+            
+            {% if result and result.next_cycles %}
+                {% for cycle in result.next_cycles %}
+                <form method="post" action="{{ url_for('download_full_cycle_pdf') }}">
+                    <input type="hidden" name="dob" value="{{ form_data.dob }}">
+                    <input type="hidden" name="tob" value="{{ form_data.tob }}">
+                    <input type="hidden" name="lat" value="{{ form_data.lat }}">
+                    <input type="hidden" name="lon" value="{{ form_data.lon }}">
+                    <input type="hidden" name="tz" value="{{ form_data.tz }}">
+                    <input type="hidden" name="target" value="{{ form_data.target }}">
+                    <input type="hidden" name="cycle_offset" value="{{ loop.index }}">
+                    <button type="submit" class="download-btn">
+                        <span>🔄</span> Cycle {{ loop.index }}: {{ cycle.start }} - {{ cycle.end }}
+                    </button>
+                </form>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>

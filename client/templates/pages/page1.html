@@ -1,0 +1,306 @@
+<!-- ================================================================================
+FILE PATH: /storage/emulated/0/WEBSITE/Localhost/templates/page1.html
+================================================================================ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌌 Cosmic Astrology Realm</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Exo 2', sans-serif;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            color: #e0e0ff;
+        }
+        
+        /* Video Background */
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            filter: brightness(0.7) contrast(1.2);
+        }
+        
+        /* Cosmic Overlay */
+        .cosmic-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%),
+                linear-gradient(135deg, rgba(120, 0, 255, 0.2) 0%, rgba(0, 255, 200, 0.2) 50%, rgba(255, 0, 150, 0.2) 100%);
+            z-index: -1;
+            animation: cosmicFlow 15s ease-in-out infinite;
+        }
+        
+        @keyframes cosmicFlow {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.9; }
+        }
+        
+        /* Content Container */
+        .content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        
+        /* Logo */
+        .logo {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            animation: logoGlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 255, 200, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0, 255, 200, 0.8)); }
+        }
+        
+        .logo img {
+            width: 100%;
+            height: auto;
+            max-width: 800px;
+            border-radius: 20px;
+            border: 3px solid rgba(0, 255, 200, 0.3);
+            box-shadow: 0 0 60px rgba(0, 255, 200, 0.4);
+        }
+        
+        /* Quote */
+        .quote {
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: 600;
+            margin: 60px 20px;
+            padding: 40px;
+            background: rgba(10, 10, 30, 0.7);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(0, 255, 200, 0.3);
+            border-radius: 25px;
+            box-shadow: 0 0 50px rgba(0, 255, 200, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff88, #00ffff, #ff00ff, #00ff88);
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: quoteRotate 10s linear infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes quoteRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .quote-text {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(45deg, #00ff88, #00ffff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.8;
+            letter-spacing: 1px;
+        }
+        
+        /* Read Destiny Button */
+        .read-destiny {
+            text-align: center;
+            margin: 60px 0;
+        }
+        
+        .destiny-btn {
+            background: linear-gradient(45deg, #ff4500, #ff8c00, #ffd700);
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #0a0a0a;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 0 40px rgba(255, 69, 0, 0.6);
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
+            animation: buttonPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes buttonPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .destiny-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            transition: 0.6s;
+        }
+        
+        .destiny-btn:hover::before {
+            left: 100%;
+        }
+        
+        .destiny-btn:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 20px 60px rgba(255, 69, 0, 0.9);
+        }
+        
+        /* Advanced Tools */
+        .advanced-tools {
+            margin-top: 80px;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .advanced-tools h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2em;
+            color: #00ff88;
+            margin-bottom: 40px;
+            text-shadow: 0 0 30px rgba(0, 255, 200, 0.7);
+        }
+        
+        .tools-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .tool-btn {
+            padding: 20px 60px;
+            background: linear-gradient(45deg, #00ff88, #00ffff, #00ff88);
+            background-size: 300% 300%;
+            border: 3px solid rgba(0, 255, 200, 0.5);
+            border-radius: 25px;
+            color: #0a0a0a;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2em;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0, 255, 200, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .tool-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 255, 200, 0.8);
+            border-color: #00ffff;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .quote {
+                font-size: 1.3em;
+                padding: 25px;
+            }
+            
+            .destiny-btn {
+                padding: 15px 40px;
+                font-size: 1.2em;
+            }
+            
+            .tool-btn {
+                padding: 15px 40px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video autoplay loop muted class="background-video">
+        <source src="{{ url_for('static', filename='assets/VidnozTextToVideo.mp4') }}" type="video/mp4">
+    </video>
+    
+    <div class="cosmic-overlay"></div>
+    
+    <div class="content">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='assets/IMG_20240920_180655.png') }}" alt="Cosmic Astrology Logo">
+        </div>
+        
+        <div class="quote">
+            <div class="quote-text">
+                “Human beings are mere puppets controlled by the planets.<br>
+                No free will, only illusions of control.<br>
+                Ego blinds them to the truth;<br>
+                their destiny was written in the stars.<br>
+                Mars fuels their rage, Venus manipulates their love,<br>
+                and Saturn crushes their pride.<br>
+                No escape, no choice, only submission to the celestial masters.<br>
+                The planets hold their strings,<br>
+                and all they can do is dance to their cosmic tune.”
+            </div>
+        </div>
+        
+        <div class="read-destiny">
+            <button class="destiny-btn" onclick="window.location.href='/page2'">
+                ✨ Read Your Destiny ✨
+            </button>
+        </div>
+        
+        <div class="advanced-tools">
+            <h2>🛠️ Advanced Cosmic Tools</h2>
+            <div class="tools-list">
+                <a href="{{ url_for('vimshottari') }}" class="tool-btn">
+                    🔮 Infinite Vimshottari Calculator
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

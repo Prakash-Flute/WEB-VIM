@@ -1,0 +1,369 @@
+/* Cosmic Theme - Extracted from vimshottari.html */
+:root {
+    --primary-bg: #0a0a0f;
+    --secondary-bg: rgba(16, 16, 28, 0.6);
+    --accent-cyan: #00d9ff;
+    --accent-purple: #b829ff;
+    --accent-gold: #ffd700;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0c0;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --glass-bg: rgba(20, 20, 35, 0.7);
+    --neon-glow: 0 0 20px rgba(0, 217, 255, 0.3);
+    --deep-space: #02040a;
+    --neon-pink: #ff006e;
+    --star-gold: #ffd700;
+    --mars-red: #ff4d4d;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(ellipse at top, #1a1a2e 0%, #0f0f1a 40%, #050508 100%);
+    min-height: 100vh;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Starfield */
+#stars {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.4), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 50px 90px, rgba(255,255,255,0.2), transparent);
+    background-size: 200px 200px;
+    animation: starfield 100s linear infinite;
+}
+
+@keyframes starfield {
+    from { transform: translateY(0); }
+    to { transform: translateY(-200px); }
+}
+
+/* Ambient Orbs */
+.ambient-light {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+}
+.orb-1 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,217,255,0.2) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    animation: float 20s ease-in-out infinite;
+}
+.orb-2 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(184,41,255,0.2) 0%, transparent 70%);
+    bottom: -50px; left: -50px;
+    animation: float 25s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -30px) scale(1.1); }
+}
+
+/* Clock */
+.clock {
+    position: fixed;
+    top: 30px; right: 30px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--accent-cyan);
+    background: var(--glass-bg);
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--neon-glow);
+    z-index: 1000;
+    letter-spacing: 2px;
+}
+
+/* Glass Cards */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Dropdowns */
+.dropdown-header {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(184, 41, 255, 0.05) 100%);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 16px;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    margin-bottom: 2px;
+}
+
+.dropdown-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.dropdown-arrow.collapsed {
+    transform: rotate(-90deg);
+}
+
+/* Container Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 20px 50px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Planet Badges */
+.planet {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 1.2rem;
+    box-shadow: inset -3px -3px 6px rgba(0,0,0,0.7), 0 0 10px currentColor;
+    transition: all 0.3s;
+}
+
+.planet:hover { transform: scale(1.2); z-index: 100; }
+
+.pada-badge {
+    position: absolute;
+    bottom: -2px; right: -2px;
+    background: rgba(0,0,0,0.9);
+    color: var(--accent-cyan);
+    font-size: 8px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--accent-cyan);
+}
+
+.planet.glow { animation: planet-glow 1.5s ease-in-out infinite; }
+@keyframes planet-glow {
+    0%, 100% { box-shadow: inset -3px -3px 6px rgba(0,0,0,0.7), 0 0 10px currentColor, 0 0 30px currentColor; filter: brightness(1.2); }
+    50% { box-shadow: inset -3px -3px 6px rgba(0,0,0,0.7), 0 0 20px currentColor, 0 0 50px currentColor; filter: brightness(1.5); }
+}
+
+.planet.jump { animation: planet-jump 1s ease-in-out infinite; }
+@keyframes planet-jump {
+    0%, 100% { transform: rotate(0deg) translate(0,0); }
+    25% { transform: rotate(90deg) translate(5px, -5px); }
+    50% { transform: rotate(180deg) translate(10px, 0); }
+    75% { transform: rotate(270deg) translate(5px, 5px); }
+}
+
+.planet.critical {
+    animation: planet-critical 0.5s ease-in-out infinite;
+    border: 2px solid var(--neon-pink);
+}
+@keyframes planet-critical {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.planet-sun { background: radial-gradient(circle at 35% 35%, #fff 5%, #ffd700 20%, #ff8c00 50%, #ff4500 100%); color: #ffd700; }
+.planet-moon { background: radial-gradient(circle at 30% 30%, #f0f0f0 0%, #d0d0d0 50%, #909090 100%); color: #e0e0e0; }
+.planet-mars { background: radial-gradient(circle at 30% 30%, #ff6b6b 0%, #cd5c5c 40%, #8b0000 100%); color: #ff6347; }
+.planet-mercury { background: radial-gradient(circle at 30% 30%, #e0e0e0 0%, #A9A9A9 50%, #696969 100%); color: #c0c0c0; }
+.planet-venus { background: radial-gradient(circle at 30% 30%, #fff8dc 0%, #f0e68c 40%, #daa520 100%); color: #ffd700; }
+.planet-jupiter { background: linear-gradient(180deg, #d4a373 0%, #bc8a5f 25%, #a66c38 50%, #d4a373 75%, #8b5a2b 100%); color: #daa520; }
+.planet-saturn { background: radial-gradient(circle at 30% 30%, #fffacd 0%, #f0e68c 40%, #daa520 100%); color: #f0e68c; }
+.planet-rahu { background: radial-gradient(circle at 30% 30%, #4a0080 0%, #2a0040 100%); color: #9932cc; }
+.planet-ketu { background: radial-gradient(circle at 30% 30%, #708090 0%, #2f4f4f 100%); color: #708090; }
+
+/* Chakra Layouts */
+.sapt-nadi-container {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(0, 217, 255, 0.1);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.nadi-headers, .nadi-columns {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.nadi-column {
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.mandal-container, .duar-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.category-card {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(0,217,255,0.2);
+    border-radius: 10px;
+    padding: 15px 10px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.time-btn {
+    padding: 12px 30px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 30px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.time-btn.active {
+    background: linear-gradient(135deg, rgba(0,217,255,0.15), rgba(184,41,255,0.15));
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(0,217,255,0.2);
+}
+
+.time-btn.live-mode { 
+    border-color: var(--neon-pink); 
+    color: var(--neon-pink); 
+}
+
+.time-btn.live-mode.active {
+    background: linear-gradient(135deg, rgba(255,0,110,0.15), rgba(188,19,254,0.15));
+    box-shadow: 0 0 20px rgba(255,0,110,0.3);
+    animation: pulse-live 2s infinite;
+}
+
+@keyframes pulse-live {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,0,110,0.2); }
+    50% { box-shadow: 0 0 30px rgba(255,0,110,0.5); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.retro-badge {
+    color: #ff3366;
+    font-weight: 700;
+    font-size: 0.75rem;
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 5px currentColor; }
+    50% { text-shadow: 0 0 20px currentColor; }
+}
+
+.coordinates {
+    font-family: 'Courier New', monospace;
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nadi-headers, .nadi-columns { 
+        grid-template-columns: 1fr; 
+    }
+    .clock { display: none; }
+    .container { padding-top: 80px; }
+}
+
+/* Additional styles for compression table */
+#compressedTableContainer .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+#compressedTableContainer .data-table th {
+    background: rgba(0, 217, 255, 0.2);
+    color: var(--accent-cyan);
+    padding: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+#compressedTableContainer .data-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+#compressedTableContainer .data-table tr:hover {
+    background: rgba(0, 217, 255, 0.05);
+}
+
+/* Modal styles for chart */
+#chartModal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+}
+#chartModal > div {
+    position: relative;
+    background: var(--glass-bg);
+    padding: 30px;
+    border-radius: 24px;
+    border: 1px solid var(--border-subtle);
+    max-width: 500px;
+    width: 90%;
+}
+#chartModal > div > span {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: 0.3s;
+}
+#chartModal > div > span:hover {
+    color: var(--text-primary);
+    transform: rotate(90deg);
+}

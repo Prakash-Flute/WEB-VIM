@@ -1,0 +1,46 @@
+<div class="dropdown-container">
+    <div class="dropdown-header" onclick="toggleSection('live-coords')">
+        <div class="dropdown-title">
+            <span class="dropdown-icon">📡</span>
+            <span>Live Coordinates</span>
+        </div>
+        <span class="dropdown-arrow collapsed" id="arrow-live-coords">▼</span>
+    </div>
+    <div class="dropdown-content collapsed" id="live-coords">
+        <div class="glass-card table-container" id="liveTableSection">
+            <div class="table-header">
+                <h3 class="table-title">
+                    <span>📡</span>
+                    <span>Live Coordinates</span>
+                </h3>
+                <span id="liveDateTime" style="color: var(--text-secondary); font-family: 'Courier New', monospace; font-size: 0.85rem;"></span>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Planet</th>
+                        <th>Longitude</th>
+                        <th>Sign</th>
+                        <th>Degrees</th>
+                        <th>Nakshatra</th>
+                        <th>Status</th>
+                        <th>Speed</th>
+                    </tr>
+                </thead>
+                <tbody id="liveTableBody">
+                    <tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text-secondary);">Click dropdown to load live data</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="live-panel" style="margin-top: 25px; padding: 20px; background: rgba(0, 217, 255, 0.05); border: 1px solid rgba(0, 217, 255, 0.1); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div class="live-indicator" style="display: flex; align-items: center; gap: 12px; font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); font-size: 0.9rem;">
+                    <div class="pulse-dot" style="width: 8px; height: 8px; background: var(--accent-cyan); border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 10px var(--accent-cyan);"></div>
+                    <span>LIVE TRACKING ACTIVE</span>
+                </div>
+                <div style="color: var(--text-secondary); font-size: 0.85rem; font-family: 'Courier New', monospace;">
+                    UPDATES EVERY 2 MIN • <span id="lastUpdateTime">Just now</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

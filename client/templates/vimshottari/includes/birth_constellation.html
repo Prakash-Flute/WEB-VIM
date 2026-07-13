@@ -1,0 +1,43 @@
+<div class="dropdown-container">
+    <div class="dropdown-header" onclick="toggleSection('birth-constellation')">
+        <div class="dropdown-title">
+            <span class="dropdown-icon">🌟</span>
+            <span>Birth Constellation Data</span>
+        </div>
+        <span class="dropdown-arrow collapsed" id="arrow-birth-constellation">▼</span>
+    </div>
+    <div class="dropdown-content collapsed" id="birth-constellation">
+        <div class="glass-card table-container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-title">Birth Location</div>
+                    <div class="info-data">{{ "%.4f"|format(result.birth_lat) }}°N</div>
+                    <div class="info-sub">{{ "%.4f"|format(result.birth_lon) }}°E</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-title">Sidereal Longitude</div>
+                    <div class="info-data">{{ result.moon_sid }}°</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-title">Moon Sign</div>
+                    <div class="info-data">{{ result.moon_sign }}</div>
+                    <div class="info-sub">{{ result.moon_dms }}</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-title">Nakshatra</div>
+                    <div class="info-data">#{{ result.nak_num }}</div>
+                    <div class="info-sub">{{ result.nak_name }}</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-title">Pada</div>
+                    <div class="info-data">{{ result.nak_pada }}</div>
+                    <div class="info-sub">Lord: {{ result.nak_lord }}</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-title">Timezone</div>
+                    <div class="info-data">UTC {{ "%+.1f"|format(result.birth_tz) }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

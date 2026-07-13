@@ -1,0 +1,29 @@
+<div class="ambient-light orb-1"></div>
+<div class="ambient-light orb-2"></div>
+<div id="stars"></div>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <div class="top-left">
+        <button id="toggleBirthFormBtn" class="btn-new-kundali">New Kundali</button>
+    </div>
+    <div class="top-center">
+        <div class="search-wrapper">
+            <input type="text" id="kundali-search" placeholder="Search by name..." oninput="SheetManager.filterList(this.value)" autocomplete="off">
+            <select id="sheet-filter-dropdown" class="sheet-select-top"></select>
+        </div>
+        <!-- Search Results Dropdown -->
+        <div id="kundali-results" class="kundali-results"></div>
+    </div>
+    <div class="top-right" id="top-right-area">
+        <!-- Connect Button (visible when not connected) -->
+        <button id="connect-btn" class="btn-connect" onclick="SheetManager.connect()">Connect</button>
+        <!-- Connected state (hidden initially) -->
+        <div id="connected-state" style="display:none; align-items:center; gap:10px;">
+            <span id="live-dot" style="display:none; width:10px; height:10px; background:#00ff88; border-radius:50%; animation: pulse-dot 1.5s infinite; box-shadow: 0 0 8px #00ff88;"></span>
+            <button id="sync-btn" class="btn-sync" style="display:none; padding:4px 16px; border-radius:4px; border:1px solid var(--accent-cyan); background:rgba(0,217,255,0.1); color:var(--accent-cyan); cursor:pointer; font-size:0.8rem; transition:all 0.3s;">SYNC</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">

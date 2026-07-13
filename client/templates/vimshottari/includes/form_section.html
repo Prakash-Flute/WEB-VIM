@@ -1,0 +1,145 @@
+<!-- ============================================================
+     form_section.html – only birth details form, no sheet integration box
+     ============================================================ -->
+
+<div id="form-section" class="glass-card form-container">
+  <!-- BIRTH DETAILS FORM (collapsible) -->
+  <div id="birthFormContent" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out, opacity 0.4s ease, padding 0.3s; opacity: 0; padding: 0 10px;">
+    <form method="post" onsubmit="showLoading()" id="dashaForm">
+      <!-- CITY SEARCH -->
+      <div class="input-group" style="grid-column: 1 / -1; margin-bottom: 15px;">
+        <label style="color: var(--accent-gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 8px;">
+          <span>Search City</span>
+        </label>
+        <div style="position: relative; display: flex; gap: 10px; flex-wrap: wrap; align-items: stretch;">
+          <div style="flex: 1; position: relative; min-width: 250px;">
+            <input type="text" id="citySearch" placeholder="e.g. Mumbai, New York, London..."
+                   style="width: 100%; border-color: rgba(255, 215, 0, 0.3); font-size: 1rem; padding: 14px 16px;"
+                   autocomplete="off">
+            <div id="cityDropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10, 10, 15, 0.95); border: 1px solid rgba(255, 215, 0, 0.3); border-top: none; border-radius: 0 0 12px 12px; max-height: 300px; overflow-y: auto; z-index: 9999; box-shadow: 0 10px 30px rgba(0,0,0,0.8); backdrop-filter: blur(10px);"></div>
+          </div>
+          <button type="button" onclick="searchCity()" class="btn-primary"
+                  style="width: auto; padding: 14px 30px; margin: 0; background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,140,0,0.1)); border-color: rgba(255,215,0,0.4); color: #ffd700;">
+            <span>FIND</span>
+          </button>
+        </div>
+        <div id="search-status" style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary); display: none; font-family: Orbitron;"></div>
+      </div>
+
+      <!-- Birth details grid -->
+      <div class="input-grid">
+        <div class="input-group">
+          <label>Birth Date</label>
+          <input type="date" name="dob" id="inputDob" value="{{ form_data.dob|default('', true) }}" required>
+        </div>
+        <div class="input-group">
+          <label>Birth Time</label>
+          <input type="time" name="tob" id="inputTob" value="{{ form_data.tob|default('', true) }}" step="1" required>
+        </div>
+        <div class="input-group">
+          <label>Latitude</label>
+          <input type="number" name="lat" step="0.000001" placeholder="28.6139"
+                 value="{{ form_data.lat|default('', true) }}" required id="inputLat">
+        </div>
+        <div class="input-group">
+          <label>Longitude</label>
+          <input type="number" name="lon" step="0.000001" placeholder="77.2090"
+                 value="{{ form_data.lon|default('', true) }}" required id="inputLon">
+        </div>
+        <div class="input-group">
+          <label>Timezone (UTC)</label>
+          <input type="number" name="tz" step="0.1" placeholder="+5.5"
+                 value="{{ form_data.tz|default('', true) }}" required id="inputTz">
+        </div>
+        <div class="input-group">
+          <label>Target Date</label>
+          <input type="date" name="target" id="inputTarget" value="{{ form_data.target|default('', true) }}" required>
+        </div>
+      </div>
+
+      <!-- GPS + Save + Download buttons -->
+      <div class="input-group" style="grid-column: 1 / -1; display: flex; justify-content: center; gap: 20px; margin: 15px 0; flex-wrap: wrap;">
+        <button type="button" onclick="getPreciseLocation()" class="btn-primary" style="max-width: 320px; background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,217,255,0.1)); border-color: rgba(0,255,136,0.4); color: #00ff88; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+          <span style="font-size: 1.2rem;">📍</span> Just My Location
+        </button>
+        <button type="button" id="save-kundali-btn" class="btn-primary" style="max-width: 320px; background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,140,0,0.1)); border-color: rgba(255,215,0,0.4); color: #ffd700; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem;" onclick="SheetManager.openSaveModal()">
+          <span style="font-size: 1.2rem;">💾</span> Save
+        </button>
+        <button type="button" onclick="openDownloadModal()" class="btn-primary" style="max-width: 320px; background: linear-gradient(135deg, rgba(0,217,255,0.1), rgba(184,41,255,0.1)); border-color: rgba(0,217,255,0.4); color: var(--accent-cyan); display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+          <span style="font-size: 1.2rem;">📄</span> Download Report
+        </button>
+      </div>
+
+      <div id="gps-status" style="grid-column: 1 / -1; text-align: center; color: #00ff88; font-family: Orbitron; font-size: 0.8rem; display: none; margin-bottom: 10px;">
+        High Precision GPS Locked
+      </div>
+
+      <button type="submit" class="btn-primary" id="submit-btn">Calculate Dasha</button>
+      <a href="{{ url_for('vimshottari') }}" class="btn-secondary-form">New Query</a>
+    </form>
+  </div>
+</div>
+
+<!-- Modal for Save Kundali (unchanged) -->
+<div id="save-kundali-modal" class="modal" style="display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter:blur(10px); justify-content:center; align-items:center;">
+  <div class="modal-content" style="background:var(--glass-bg); padding:30px; border-radius:24px; border:1px solid var(--border-subtle); max-width:480px; width:90%;">
+    <span class="close-modal" onclick="SheetManager.closeSaveModal()">&times;</span>
+    <h2 style="font-family:'Orbitron',sans-serif; color:var(--accent-cyan); font-size:1.5rem; margin-bottom:20px; text-align:center;">Save Kundali</h2>
+
+    <div style="margin-bottom:16px;">
+      <label style="display:block; font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px;">Select Sheet</label>
+      <select id="modal-sheet-select" class="sheet-select" style="width:100%;"></select>
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        <button class="btn-small btn-create" onclick="SheetManager.createSheetFromModal()">+ New Sheet</button>
+        <button class="btn-small btn-delete" onclick="SheetManager.deleteSheetFromModal()">Delete Selected</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <label style="display:block; font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px;">Person's Name</label>
+      <input type="text" id="modal-name" placeholder="Enter full name" style="width:100%; padding:10px 14px; border-radius:8px; border:1px solid var(--border-subtle); background:rgba(0,0,0,0.4); color:#fff; font-size:1rem;">
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <label style="display:block; font-size:0.8rem; color:var(--text-secondary); margin-bottom:4px;">City (from GPS or search)</label>
+      <input type="text" id="modal-city" placeholder="City name" style="width:100%; padding:10px 14px; border-radius:8px; border:1px solid var(--border-subtle); background:rgba(0,0,0,0.4); color:#fff; font-size:1rem;">
+    </div>
+
+    <div style="display:flex; gap:12px;">
+      <button class="btn-primary" style="flex:1; padding:14px; background:linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,140,0,0.1)); border-color:rgba(255,215,0,0.4); color:#ffd700;" onclick="SheetManager.saveFromModal()">Save</button>
+      <button class="btn-secondary-form" style="flex:1; padding:14px;" onclick="SheetManager.closeSaveModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle birth form visibility (triggered by the top-bar New Kundali button)
+  (function() {
+    var btn = document.getElementById('toggleBirthFormBtn');
+    var content = document.getElementById('birthFormContent');
+    if (btn && content) {
+      btn.addEventListener('click', function() {
+        var isCollapsed = content.style.maxHeight === '0px' || content.style.maxHeight === '';
+        if (isCollapsed) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.style.opacity = '1';
+          content.style.padding = '20px 10px';
+          btn.style.borderColor = 'var(--accent-gold)';
+          btn.style.color = 'var(--accent-gold)';
+        } else {
+          content.style.maxHeight = '0px';
+          content.style.opacity = '0';
+          content.style.padding = '0 10px';
+          btn.style.borderColor = 'rgba(0,217,255,0.4)';
+          btn.style.color = 'var(--accent-cyan)';
+        }
+      });
+
+      var hasError = document.querySelector('.error-message') !== null;
+      var hasResult = document.getElementById('result-section') !== null;
+      if (hasError || hasResult) {
+        btn.click();
+      }
+    }
+  })();
+</script>
