@@ -1,0 +1,12 @@
+{
+  "project_name": "WEB-VIM",
+  "repository": "Prakash-Flute/WEB-VIM",
+  "project_root": "/storage/emulated/0/WEB-VIM",
+  "server": "/storage/emulated/0/WEB-VIM/server/app.py",
+  "branch": "main",
+  "python": "python3",
+  "port": 4455,
+  "auto_pull": true,
+  "auto_install": true,
+  "auto_update": true
+}
