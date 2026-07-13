@@ -1,0 +1,14 @@
+{
+  "name": "WEB-VIM",
+  "id": "web-vim",
+  "version": "0.1.0",
+  "branch": "main",
+  "repository": "https://github.com/Prakash-Flute/WEB-VIM",
+  "entry": "server/app.py",
+  "python": "python3",
+  "default_port": 4455,
+  "update_note": "UPDATE_NOTE.md",
+  "requirements": [
+    "requirements.txt"
+  ]
+}
